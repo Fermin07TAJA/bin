@@ -39,62 +39,37 @@ PORTFOLIO := config.PORTFOLIO
 
 ; RESET
 ^F12::
-MsgBox,"Main Reset"
-Reload    
-Return
+	MsgBox,"Main Reset"
+	Reload    
+return
 
 ;Caps Master		----------------------------------------------------------------------------------------------------
 
 SetCapsLockState, AlwaysOff
-+CapsLock:: ;Toggling only with Shift
-    SetCapsLockState, % (GetKeyState("CapsLock", "T") ? "Off" : "On")
-return
++CapsLock::SetCapsLockState, % (GetKeyState("CapsLock", "T") ? "Off" : "On")
 
 #If (GetKeyState("CapsLock", "P") && !GetKeyState("Shift", "P"))
-	>!i::
-	Run % contra
-	return
-		
-	Tab::
-		Send {F15}
-	return
-	`::
-		Send {F16}
-	return
-	q::
-		Send {F17}
-	return
-	
-	n::Run Notepad
-	g::Send {Alt}jpagg ;Group
-	u::Send {Alt}jpagu ;Ungroup
-	f::Send {Alt}jpsow{Down}{Down}{Down}{Down}{Down}{Down}{Enter} ;Frame
-	w::Send {Alt}jptwo ;Wrap Image
-	1::Send {Alt}jpaac ;Center Image
-	
-	F1::
-		winmove()
-		sleep, 500
-		WinMaximize, A
-	return
-
-	x::Send {Delete}
-
-	c::
-		Send p
-		sleep,200
-		Send current{Enter}
-	return
-
+;----------------------------------------------------------------------------------------------------
+	Tab::Send {F15}
+	`::Send {F16}
 	a::Send {Alt}hfp ;Formtato
-
+	;f
+	;g
+	i::img_ipynb()
+	>!i::Run % contra
+	q::Send {F17}
 	r::Send {U+03A9} ;Ω
+	;u
+	;w
+	
+	;ASCII ---------------------------
+	
 	Right::Send {U+1F89C}{U+1F89C}{U+1F89C}{U+1F89C}{U+1F89C}{U+1F872} ; 🢜🢜🢜🢜🢜🡲
 	Left::Send {U+1F870}{U+1F89C}{U+1F89C}{U+1F89C}{U+1F89C} ; 🡰🢜🢜🢜🢜
 	Down::Send {U+1F873} ;🡳
 	Up::Send {U+1F871} ;🡱
-
-	i::img_ipynb()
+	
+	;Path ---------------------------
 
 	LButton::
 		Clipboard := ""  ; Clear the clipboard
@@ -103,7 +78,7 @@ return
 		Filepath := Clipboard
 		;MsgBox, % Filepath
 		Clipboard = %Filepath%
-	Return 
+	return 
 
 	^LButton::
 		Clipboard := ""  ; Clear the clipboard
@@ -114,13 +89,27 @@ return
 		Clipboard = %Filepath%
 		SplitPath, Filepath, OutFileName, OutDir  ; Split the file path into components
 		Run, %OutDir%  ; Open the folder containing the file
-	Return
-
+	return
 	
-	;Return 
-
+	;WinManager ---------------------------
+	
+	F1::
+		winmove()
+		sleep, 500
+		WinMaximize, A
+	return
+	
+	;365Manager ---------------------------
+	1::Send {Alt}jpaac ;Center Image
+	
+	f::Send {Alt}jpsow{Down}{Down}{Down}{Down}{Down}{Down}{Enter} ;Frame
+	g::Send {Alt}jpagg ;Group
+	u::Send {Alt}jpagu ;Ungroup
+	w::Send {Alt}jptwo ;Wrap Image
+;----------------------------------------------------------------------------------------------------
+ 
 #If
-CapsLock::Return ; Prevent Caps Lock from toggling when pressed alone
+CapsLock::return ; Prevent Caps Lock from toggling when pressed alone
 
 ;Image Embed
 img_ipynb()
@@ -137,15 +126,15 @@ img_ipynb()
 ^+8::
 sleep, 500
 Send {Alt}hu4{Right}{Enter}
-Return
+return
 
 RAlt & b::
 Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
-Return
+return
 
 RAlt & c::
 Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
-Return
+return
 
 RAlt & d::
 Send %THROWPASS%
@@ -169,7 +158,7 @@ return
 
 >!i::
 Run % itinerario
-Return
+return
 
 ^>!i::
 Run % anime
@@ -189,23 +178,23 @@ return
 
 #j::
 Send %email1%
-Return
+return
 
 #^j::
 Send %email2%
-Return
+return
 
 #!j::
 Send %email3%
-Return
+return
 
 RAlt & k::
 Send %phone%
-Return
+return
 
 RAlt & l::
 Send %LINKEDIN%
-Return
+return
 
 RAlt & m::
 Send \begin{{}bmatrix{}} \end{{}bmatrix{}}
@@ -213,27 +202,27 @@ return
 
 >!n::
 Run Notepad
-Return
+return
 
 ^>!n::
 Run notepad++.exe
-Return
+return
 
 !`::
 Send {U+00F1}
-Return
+return
 
 #o::
 Send %email4%
-Return
+return
 
 #^o::
 Send %email5%
-Return
+return
 
 #!o::
 Send %email6%
-Return
+return
 
 #q::
 	Run, C:\RootApps\bin\whats.vbs,, Hide
@@ -245,7 +234,7 @@ return
 
 RAlt & s::
 Run % "C:Bolts.pdf"
-Return
+return
 
 ^#S::
 Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
@@ -290,7 +279,7 @@ return
 #z::
 FormatTime, datestring,,yyyy-MM-dd
 Send %datestring%
-Return
+return
 
 ;Text Editing		----------------------------------------------------------------------------------------------------
 
@@ -304,7 +293,7 @@ LCtrl & RCtrl::
 
 	;MsgBox, % Filepath
 	Run Notepad.exe %Filepath%
-Return  
+return  
 
 LAlt & RAlt::
 	ClipSave := ClipboardAll
@@ -316,14 +305,14 @@ LAlt & RAlt::
 
 	;MsgBox, % Filepath
 	Run notepad++.exe "%Filepath%"
-Return 
+return 
 
 ;OS Management		----------------------------------------------------------------------------------------------------
 
 ; Window on Top
 ^!SPACE::
 Winset, Alwaysontop, , A
-Return
+return
 
 ; Everything Search and 1A_Bolts Editor
 $Tab::                ;Trigger ($=no self-firing)
@@ -338,7 +327,7 @@ $Tab::                ;Trigger ($=no self-firing)
   }                      ;  ...Close 'Else' block
   KeyWait Tab         ;  Wait until released
   Send {Tab Up}       ;  Revert the pressed key
-Return  
+return  
 
 ; AltTab Replacement
 <!Tab::
@@ -432,7 +421,7 @@ tog()
 
 !F1::
 winmove()
-Return
+return
 
 winmove()
 {
