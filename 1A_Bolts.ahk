@@ -2,7 +2,6 @@
 CoordMode, Mouse, Screen
 
 ;Password Manager	----------------------------------------------------------------------------------------------------
-
 cfp := A_ScriptDir "\..\pm\pm.ini"
 ReadConfig(filePath) {
     local config := {}
@@ -44,12 +43,11 @@ PORTFOLIO := config.PORTFOLIO
 return
 
 ;Caps Master		----------------------------------------------------------------------------------------------------
-
 SetCapsLockState, AlwaysOff
 +CapsLock::SetCapsLockState, % (GetKeyState("CapsLock", "T") ? "Off" : "On")
 
 #If (GetKeyState("CapsLock", "P") && !GetKeyState("Shift", "P"))
-;----------------------------------------------------------------------------------------------------
+    ;-------------------------------------------------------------------------------------------
 	Tab::Send {F15}
 	`::Send {F16}
 	a::Send {Alt}hfp ;Formtato
@@ -106,7 +104,7 @@ SetCapsLockState, AlwaysOff
 	g::Send {Alt}jpagg ;Group
 	u::Send {Alt}jpagu ;Ungroup
 	w::Send {Alt}jptwo ;Wrap Image
-;----------------------------------------------------------------------------------------------------
+    ;-------------------------------------------------------------------------------------------
  
 #If
 CapsLock::return ; Prevent Caps Lock from toggling when pressed alone
@@ -124,105 +122,46 @@ img_ipynb()
 
 ;Alpha		----------------------------------------------------------------------------------------------------
 ^+8::
-sleep, 500
+sleep, 300
 Send {Alt}hu4{Right}{Enter}
 return
 
-RAlt & b::
-Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
-return
+RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
+RAlt & c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
 
-RAlt & c::
-Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
-return
+RAlt & d::Send %THROWPASS%
+LAlt & d::Send %THROWEMAIL%
 
-RAlt & d::
-Send %THROWPASS%
-return
+#e::Run, C:\Windows\explorer.exe shell:ControlPanelFolder
 
-LAlt & d::
-Send %THROWEMAIL%
-return
+>!g::Send Convert each plot to use fgmk2 instead of plt. Fgmk2 is in the Customize ChatGPT section.
++>!g::Send Convert to markdown. Use '$' format for equation delimiters
 
-#e::
-    Run, C:\Windows\explorer.exe shell:ControlPanelFolder
-return
+>!i::Run % itinerario
+^>!i::Run % anime
 
->!g::
-Send Convert each plot to use fgmk2 instead of plt. Fgmk2 is in the Customize ChatGPT section.
-return
+>!j::Send jp928
+!j::Send %NAME%
++!j::Send %NAMECAPS%
 
-+>!g::
-Send Convert to markdown. Use '$' format for equation delimiters
-return
+#j::Send %email1%
+#^j::Send %email2%
+#!j::Send %email3%
 
->!i::
-Run % itinerario
-return
+RAlt & k::Send %phone%
 
-^>!i::
-Run % anime
-return
+RAlt & l::Send %LINKEDIN%
 
-RAlt & j::
-Send jp928
-return
+RAlt & m::Send \begin{{}bmatrix{}} \end{{}bmatrix{}}
 
-!j::
-Send %NAME%
-return
+>!n::Run Notepad
+^>!n::Run notepad++.exe
 
-+!j::
-Send %NAMECAPS%
-return
+!`::Send {U+00F1}
 
-#j::
-Send %email1%
-return
-
-#^j::
-Send %email2%
-return
-
-#!j::
-Send %email3%
-return
-
-RAlt & k::
-Send %phone%
-return
-
-RAlt & l::
-Send %LINKEDIN%
-return
-
-RAlt & m::
-Send \begin{{}bmatrix{}} \end{{}bmatrix{}}
-return
-
->!n::
-Run Notepad
-return
-
-^>!n::
-Run notepad++.exe
-return
-
-!`::
-Send {U+00F1}
-return
-
-#o::
-Send %email4%
-return
-
-#^o::
-Send %email5%
-return
-
-#!o::
-Send %email6%
-return
+#o::Send %email4%
+#^o::Send %email5%
+#!o::Send %email6%
 
 #q::
 	Run, C:\RootApps\bin\whats.vbs,, Hide
@@ -232,43 +171,21 @@ return
 	Send {Down}{Enter}
 return
 
-RAlt & s::
-Run % "C:Bolts.pdf"
-return
-
-^#S::
-Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
-return
-
+RAlt & s::Run % "C:Bolts.pdf"
+^#S::Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
 #s::
     Send, {LWin down}{9 down}
     Sleep, 5
     Send, {LWin up}{9 up}
 return
 
-#u::
-Send {Raw}`%`%render sci_not 3
-return
+#u::Send {Raw}`%`%render sci_not 3
+>!u::Send {Raw}`%`%render short 3
+^>!u::Send {Raw}`%`%render long 3
++>!u::Send {Raw}`%`%render params
 
->!u::
-Send {Raw}`%`%render short 3
-return
-
-^>!u::
-Send {Raw}`%`%render long 3
-return
-
-+>!u::
-Send {Raw}`%`%render params
-return
-
->!w::
-Send %PORTFOLIO%
-return
-
-^>!w::
-Send %GITHUB%
-return
+>!w::Send %PORTFOLIO%
+^>!w::Send %GITHUB%
 
 #W::
     Send, {LWin down}{8 down}
@@ -282,7 +199,6 @@ Send %datestring%
 return
 
 ;Text Editing		----------------------------------------------------------------------------------------------------
-
 LCtrl & RCtrl::
 	ClipSave := ClipboardAll
 	Clipboard :=
@@ -310,9 +226,7 @@ return
 ;OS Management		----------------------------------------------------------------------------------------------------
 
 ; Window on Top
-^!SPACE::
-Winset, Alwaysontop, , A
-return
+^!SPACE::Winset, Alwaysontop, , A
 
 ; Everything Search and 1A_Bolts Editor
 $Tab::                ;Trigger ($=no self-firing)
@@ -384,13 +298,10 @@ IsWindow(hWnd){
 
 ; Music
 Home::Media_Play_Pause
-return
 
 End::Media_Prev
-return
 
 Ins::Media_Next
-return
 
 ; Huion / Wacom Tablet for Xournal++
 ^`;::tog()
@@ -419,9 +330,7 @@ tog()
 ; #Persistent
 ; CoordMode, Mouse, Screen
 
-!F1::
-winmove()
-return
+!F1::winmove()
 
 winmove()
 {
