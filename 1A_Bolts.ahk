@@ -3,7 +3,7 @@ CoordMode, Mouse, Screen
 
 ;Password Manager	----------------------------------------------------------------------------------------------------
 
-cfp := A_ScriptDir "\pm.ini"
+cfp := A_ScriptDir "\..\pm\pm.ini"
 ReadConfig(filePath) {
     local config := {}
     Loop, Read, %filePath%
