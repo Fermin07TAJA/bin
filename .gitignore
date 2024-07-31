@@ -1,0 +1,9 @@
+*
+!.gitignore
+!1A_Bolts.ahk
+!NumLock.ahk
+!whats.ps1
+!whats.vbs
+
+# Subdirectories
+!*/
