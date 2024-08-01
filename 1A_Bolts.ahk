@@ -39,7 +39,7 @@ PORTFOLIO := config.PORTFOLIO
 ; RESET
 ^F12::
 	MsgBox,"Main Reset"
-	Reload    
+	Reload
 return
 
 ;Caps Master		----------------------------------------------------------------------------------------------------
@@ -59,14 +59,14 @@ SetCapsLockState, AlwaysOff
 	r::Send {U+03A9} ;Ω
 	;u
 	;w
-	
+
 	;ASCII ---------------------------
-	
+
 	Right::Send {U+1F89C}{U+1F89C}{U+1F89C}{U+1F89C}{U+1F89C}{U+1F872} ; 🢜🢜🢜🢜🢜🡲
 	Left::Send {U+1F870}{U+1F89C}{U+1F89C}{U+1F89C}{U+1F89C} ; 🡰🢜🢜🢜🢜
 	Down::Send {U+1F873} ;🡳
 	Up::Send {U+1F871} ;🡱
-	
+
 	;Path ---------------------------
 
 	LButton::
@@ -76,7 +76,7 @@ SetCapsLockState, AlwaysOff
 		Filepath := Clipboard
 		;MsgBox, % Filepath
 		Clipboard = %Filepath%
-	return 
+	return
 
 	^LButton::
 		Clipboard := ""  ; Clear the clipboard
@@ -88,24 +88,24 @@ SetCapsLockState, AlwaysOff
 		SplitPath, Filepath, OutFileName, OutDir  ; Split the file path into components
 		Run, %OutDir%  ; Open the folder containing the file
 	return
-	
+
 	;WinManager ---------------------------
-	
+
 	F1::
 		winmove()
 		sleep, 500
 		WinMaximize, A
 	return
-	
+
 	;365Manager ---------------------------
 	1::Send {Alt}jpaac ;Center Image
-	
+
 	f::Send {Alt}jpsow{Down}{Down}{Down}{Down}{Down}{Down}{Enter} ;Frame
 	g::Send {Alt}jpagg ;Group
 	u::Send {Alt}jpagu ;Ungroup
 	w::Send {Alt}jptwo ;Wrap Image
     ;-------------------------------------------------------------------------------------------
- 
+
 #If
 CapsLock::return ; Prevent Caps Lock from toggling when pressed alone
 
@@ -179,6 +179,47 @@ RAlt & s::Run % "C:Bolts.pdf"
     Send, {LWin up}{9 up}
 return
 
+; Function to get highlighted text
+GetHighlightedText()
+{
+    Clipboard := ""           ; Empty the clipboard
+    Send, ^c                  ; Copy the highlighted text
+    ClipWait, 1               ; Wait for the clipboard to contain data
+    return Clipboard
+}
+
+; Run PowerShell as Administrator
+#T::
+{
+    path := GetHighlightedText()
+    if (path != "")
+    {
+        path := StrReplace(path, "\", "\\")
+        Run, *RunAs pwsh.exe -NoExit -Command "Set-Location -LiteralPath '%path%'", , RunAs
+    }
+    else
+    {
+        Run, pwsh.exe, , RunAs
+    }
+}
+return
+
+; Run PowerShell
+>!T::
+{
+    path := GetHighlightedText()
+    if (path != "")
+    {
+        path := StrReplace(path, "\", "\\")
+        Run, pwsh.exe -NoExit -Command "Set-Location -LiteralPath '%path%'", , Normal
+    }
+    else
+    {
+        Run, pwsh.exe
+    }
+}
+return
+
 #u::Send {Raw}`%`%render sci_not 3
 >!u::Send {Raw}`%`%render short 3
 ^>!u::Send {Raw}`%`%render long 3
@@ -209,7 +250,7 @@ LCtrl & RCtrl::
 
 	;MsgBox, % Filepath
 	Run Notepad.exe %Filepath%
-return  
+return
 
 LAlt & RAlt::
 	ClipSave := ClipboardAll
@@ -220,8 +261,8 @@ LAlt & RAlt::
 	Clipboard := ClipSave
 
 	;MsgBox, % Filepath
-	Run notepad++.exe "%Filepath%"
-return 
+	Run "C:\Program Files\Zed\zed.exe" "%Filepath%"
+return
 
 ;OS Management		----------------------------------------------------------------------------------------------------
 
@@ -237,11 +278,11 @@ $Tab::                ;Trigger ($=no self-firing)
     Run "C:\Program Files\Everything\Everything.exe"
     KeyWait Tab,T1    ;    Wait T(insert num here)s
     If ErrorLevel        ;    If NOT released in 5s
-      Run Notepad++.exe "C:\RootApps\bin\1A_Bolts.ahk" ;      Say so/do stuff
+      Run "C:\Program Files\Zed\zed.exe" "C:\RootApps\bin\1A_Bolts.ahk" ;      Say so/do stuff
   }                      ;  ...Close 'Else' block
   KeyWait Tab         ;  Wait until released
   Send {Tab Up}       ;  Revert the pressed key
-return  
+return
 
 ; AltTab Replacement
 <!Tab::
@@ -255,15 +296,15 @@ return
         this_ID := id%A_Index%
         WinGetTitle, title, ahk_id %this_ID%
         If (title = "")
-            continue            
-        If (!IsWindow(WinExist("ahk_id" . this_ID))) 
             continue
-        Menu, windows, Add, %title%, ActivateTitle      
+        If (!IsWindow(WinExist("ahk_id" . this_ID)))
+            continue
+        Menu, windows, Add, %title%, ActivateTitle
         WinGet, Path, ProcessPath, ahk_id %this_ID%
-        Try 
+        Try
             Menu, windows, Icon, %title%, %Path%,, 0
-        Catch 
-            Menu, windows, Icon, %title%, %A_WinDir%\System32\SHELL32.dll, 3, 0 
+        Catch
+            Menu, windows, Icon, %title%, %A_WinDir%\System32\SHELL32.dll, 3, 0
     }
     CoordMode, Mouse, Screen
     ;MouseMove, (0.4*A_ScreenWidth), (0.35*A_ScreenHeight)
@@ -336,7 +377,7 @@ winmove()
 {
     MouseGetPos, xpos, ypos
     xpos -= 500
-    ypos -= 10 
+    ypos -= 10
     WinGet, active_id, ID, A
     WinMove, ahk_id %active_id%,, xpos, ypos
 }
