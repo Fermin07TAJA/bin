@@ -38,7 +38,17 @@ PORTFOLIO := config.PORTFOLIO
 
 ; RESET
 ^F12::
-	MsgBox,"Main Reset"
+	Gui, New, +Owner -SysMenu +AlwaysOnTop
+    Gui, Color, 000000
+    Gui, Font, s8, Segoe UI
+    Gui, Add, Button, x4 y4 w60 h20 gOK vBtnOK, OK
+    Gui, Show, w68 h28, Main: Reset!
+    ;Gui, +LastFound
+    Send {Down}
+    Return
+    OK:
+        Gui, Destroy
+    return
 	Reload
 return
 
@@ -167,7 +177,7 @@ RAlt & m::Send \begin{{}bmatrix{}} \end{{}bmatrix{}}
     Gui, Color, 000000  ; Set the background color to black
     Gui, Font, s8, Segoe UI
     Gui, Add, Button, x4 y4 w100 h20 gCANCEL vBtnCancel, Cancel
-    Gui, Add, Button, x109 y4 w50 h20 gOK vBtnOK, Extract
+    Gui, Add, Button, x109 y4 w50 h20 gEXTRACT vBtnExtract, Extract
 
     Gui, Add, Text, x4 y35 cFFFFFF, %showdirs%
 
@@ -178,7 +188,7 @@ RAlt & m::Send \begin{{}bmatrix{}} \end{{}bmatrix{}}
 
     Return
 
-    OK:
+    EXTRACT:
     FileCreateDir, %NewOutDir%
     RunWait, "C:\Program Files\7-Zip\7z.exe" x "%Filepath%" -o"%NewOutDir%"
     FileDelete, %Filepath%
