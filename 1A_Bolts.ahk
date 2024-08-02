@@ -40,10 +40,8 @@ PORTFOLIO := config.PORTFOLIO
 ^F12::
 	Gui, New, +Owner -SysMenu +AlwaysOnTop
     Gui, Color, 000000
-    Gui, Font, s8, Segoe UI
     Gui, Add, Button, x4 y4 w60 h20 gOK vBtnOK, OK
     Gui, Show, w68 h28, Main: Reset!
-    ;Gui, +LastFound
     Send {Down}
     Return
     OK:
@@ -168,13 +166,13 @@ RAlt & m::Send \begin{{}bmatrix{}} \end{{}bmatrix{}}
 >!p::
     Filepath := clipMaster()
     Clipboard := Filepath
-    SplitPath, Filepath, FileName, OutDir, EXT, BaseName  ; Get the directory of the file
+    SplitPath, Filepath, FileName, OutDir, EXT, BaseName
     NewOutDir := OutDir . "\" . BaseName
     LogFile := OutDir . "\extraction_log.txt"
 
     showdirs := "File:`n   " . Filepath . "`nParent Directory:`n   " . OutDir . "`nExtracted To:`n   " . NewOutDir
-    Gui, New, +Owner +Resize -SysMenu ;+AlwaysOnTop
-    Gui, Color, 000000  ; Set the background color to black
+    Gui, New, +Owner +Resize -SysMenu
+    Gui, Color, 000000k
     Gui, Font, s8, Segoe UI
     Gui, Add, Button, x4 y4 w100 h20 gCANCEL vBtnCancel, Cancel
     Gui, Add, Button, x109 y4 w50 h20 gEXTRACT vBtnExtract, Extract
