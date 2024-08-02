@@ -70,23 +70,15 @@ SetCapsLockState, AlwaysOff
 	;Path ---------------------------
 
 	LButton::
-		Clipboard := ""  ; Clear the clipboard
-		Send ^c  ; Copy selected text (file path) to the clipboard
-		ClipWait, 2  ; Wait up to 2 seconds for the clipboard to contain data
-		Filepath := Clipboard
-		;MsgBox, % Filepath
-		Clipboard = %Filepath%
+        Filepath := clipMaster()
+        Clipboard = %Filepath%
 	return
 
 	^LButton::
-		Clipboard := ""  ; Clear the clipboard
-		Send ^c  ; Copy selected text (file path) to the clipboard
-		ClipWait, 2  ; Wait up to 2 seconds for the clipboard to contain data
-		Filepath := Clipboard
-		;MsgBox, % Filepath
-		Clipboard = %Filepath%
-		SplitPath, Filepath, OutFileName, OutDir  ; Split the file path into components
-		Run, %OutDir%  ; Open the folder containing the file
+        Filepath := clipMaster()
+        Clipboard = %Filepath%
+		SplitPath, Filepath, OutFileName, OutDir  ; Split path into components
+		Run, %OutDir%  ; Open file location
 	return
 
 	;WinManager ---------------------------
@@ -162,6 +154,43 @@ RAlt & m::Send \begin{{}bmatrix{}} \end{{}bmatrix{}}
 #o::Send %email4%
 #^o::Send %email5%
 #!o::Send %email6%
+
+>!p::
+    Filepath := clipMaster()
+    Clipboard := Filepath
+    SplitPath, Filepath, FileName, OutDir, EXT, BaseName  ; Get the directory of the file
+    NewOutDir := OutDir . "\" . BaseName
+    LogFile := OutDir . "\extraction_log.txt"
+
+    showdirs := "File:`n   " . Filepath . "`nParent Directory:`n   " . OutDir . "`nExtracted To:`n   " . NewOutDir
+    Gui, New, +Owner +Resize -SysMenu ;+AlwaysOnTop
+    Gui, Color, 000000  ; Set the background color to black
+    Gui, Font, s8, Segoe UI
+    Gui, Add, Button, x4 y4 w100 h20 gCANCEL vBtnCancel, Cancel
+    Gui, Add, Button, x109 y4 w50 h20 gOK vBtnOK, Extract
+
+    Gui, Add, Text, x4 y35 cFFFFFF, %showdirs%
+
+    Gui, Show, w163 h28, Fysh 7z
+    Gui, +LastFound
+    WinGetPos,,, Width, Height
+    WinMove, A,, (A_ScreenWidth - Width) / 2, (A_ScreenHeight - Height) / 2
+
+    Return
+
+    OK:
+    FileCreateDir, %NewOutDir%
+    RunWait, "C:\Program Files\7-Zip\7z.exe" x "%Filepath%" -o"%NewOutDir%"
+    FileDelete, %Filepath%
+    Gui, Destroy
+    Return
+
+    CANCEL:
+    Gui, Destroy
+    MsgBox, Canceled: %BaseName%.%EXT%
+    Return
+return
+
 
 #q::
 	Run, C:\RootApps\bin\whats.vbs,, Hide
@@ -405,3 +434,10 @@ return
     Clipboard := degrees
     MsgBox, % "Radians to degrees: " degrees
 return
+
+clipMaster() {
+    Clipboard := ""
+    Send ^c
+    ClipWait, 2
+    return Clipboard
+}
