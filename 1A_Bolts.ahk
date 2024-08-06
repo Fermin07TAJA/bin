@@ -38,17 +38,17 @@ PORTFOLIO := config.PORTFOLIO
 
 ; RESET
 ^F12::
-	Gui, New, +Owner -SysMenu +AlwaysOnTop
+    Gui, New, +Owner -SysMenu +AlwaysOnTop
     Gui, Color, 000000
     Gui, Add, Button, x4 y4 w60 h20 gOK vBtnOK, OK
     Gui, Show, w68 h28, Main: Reset!
     Send {Down}
     Return
-    OK:
-        Gui, Destroy
-    return
-	Reload
-return
+
+OK:
+    Gui, Destroy
+    Reload
+Return
 
 ;Caps Master		----------------------------------------------------------------------------------------------------
 SetCapsLockState, AlwaysOff
@@ -134,8 +134,7 @@ LAlt & d::Send %THROWEMAIL%
 
 #e::Run, C:\Windows\explorer.exe shell:ControlPanelFolder
 
->!g::Send Convert each plot to use fgmk2 instead of plt. Fgmk2 is in the Customize ChatGPT section.
-+>!g::Send Convert to markdown. Use '$' format for equation delimiters
+>!g::Run % "https://chatgpt.com"
 
 >!i::Run % itinerario
 ^>!i::Run % anime
@@ -152,7 +151,7 @@ RAlt & k::Send %phone%
 
 RAlt & l::Send %LINKEDIN%
 
-RAlt & m::Send \begin{{}bmatrix{}} \end{{}bmatrix{}}
+>!m::Run % "D:\Chickenfish\Music\1A_Main"
 
 >!n::Run Notepad
 ^>!n::Run notepad++.exe
