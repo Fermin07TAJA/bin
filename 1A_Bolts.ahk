@@ -134,6 +134,50 @@ LAlt & d::Send %THROWEMAIL%
 
 #e::Run, C:\Windows\explorer.exe shell:ControlPanelFolder
 
+>!f::Send POWERTRAIN PERIPHERALS
+<!f::Send PT25_A07
+#f::
+    InputBox, u_inp, IProperties, SUB_SUBASSY_(DESC):
+    u_inp := Trim(u_inp)
+
+    ; First pattern for format: SUB_SUBASSY_(DESC)
+    If RegExMatch(u_inp, "(\w+)_(\w+)_(\w+)_\(([\w\s]+)\)", fpn)
+        {
+            desc := fpn4 ; e.g., New Cart
+            pn := fpn1 "_" fpn2 "_" fpn3 ; e.g., PT25_A0701_P02
+            subassy := fpn2 ; e.g., A0701
+
+            SendInput, %desc%{Tab} ; e.g., New Cart
+            SendInput, %NAMECAPS%{Tab} ; JOAQUIN PAZ
+            SendInput, %pn%{Tab} ; e.g., PT25_A0701_P02
+            SendInput, %NAMECAPS%{Tab} ; JOAQUIN PAZ
+            SendInput, %subassy%{Tab} ; e.g., A0701
+            SendInput, POWERTRAIN PERIPHERALS{Tab} ; POWERTRAIN PERIPHERALS
+            SendInput, %NAMECAPS% ; JOAQUIN PAZ
+        }
+    ; Second pattern for format: SUB_SUBASSY_SUB_(DESC)
+    Else If RegExMatch(u_inp, "(\w+)_(\w+)_\(([\w\s]+)\)", fpn)
+    {
+        desc := fpn3 ; e.g., Crested
+        pn := fpn1 "_" fpn2 ; e.g., PT25_A0703
+
+        SendInput, %desc%{Tab} ; e.g., Crested
+        SendInput, %NAMECAPS%{Tab} ; JOAQUIN PAZ
+        SendInput, %pn%{Tab} ; e.g., PT25_A0703
+        SendInput, %NAMECAPS%{Tab} ; JOAQUIN PAZ
+        SendInput, %fpn2%{Tab} ; e.g., A0703
+        SendInput, POWERTRAIN PERIPHERALS{Tab} ; POWERTRAIN PERIPHERALS
+        SendInput, %NAMECAPS% ; JOAQUIN PAZ
+    }
+    Else
+    {
+        Msgbox, SUB_SUBASSY_(DESC) or SUB_SUBASSY_PN_(DESC) format!
+    }
+return
+
+
+
+
 >!g::Run % "https://chatgpt.com"
 
 >!i::Run % itinerario
@@ -202,7 +246,7 @@ return
 #q::
 	Run, C:\RootApps\bin\whats.vbs,, Hide
 	sleep, 2000
-	Send y&
+	; Send y&
 	sleep, 500
 	Send {Down}{Enter}
 return
