@@ -2,8 +2,8 @@
 
 ^!F12::
 {
-	MsgBox("Num Reset")    
-	Reload()    
+	MsgBox("Num Reset")
+	Reload()
 }
 
 ;OPERATORS	----------------------------------------------------------------------------------------------------
@@ -102,7 +102,8 @@ NumpadEnd::Send "{Raw}\frac{"
     		while (!GetKeyState("RALT", "P")) {
         		Sleep(10)  ; Check every 100 milliseconds
     		}
-    		Send("{Raw}#$\frac{" IB.Value "}{" IB2.Value "}$ ")
+    		;Send("{Raw}#$\frac{" IB.Value "}{" IB2.Value "}$ ")
+            Send("{Raw}\frac{" IB.Value "}{" IB2.Value "} ")
 	}
 }
 NumpadDown:: send "{Raw}\cos("
