@@ -65,6 +65,7 @@ SetCapsLockState, AlwaysOff
 	>!i::Run % contra
 	q::Send {F17}
 	r::Send {U+03A9} ;Ω
+	t::Send &emsp;{Space}
 	;u
 	;w
 
@@ -136,6 +137,7 @@ LAlt & d::Send %THROWEMAIL%
 
 >!f::Send POWERTRAIN PERIPHERALS
 <!f::Send PT25_A07
+#<!f::Run % "https://drive.google.com/drive/folders/1Z6k7yDcmoCvjKCkCC_pLMdgMCAzDXraC?usp=drive_link"
 #f::
     InputBox, u_inp, IProperties, SUB_SUBASSY_(DESC):
     u_inp := Trim(u_inp)
