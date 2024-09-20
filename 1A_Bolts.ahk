@@ -50,6 +50,14 @@ OK:
     Reload
 Return
 
+; RESET Tester Script
+<!F12::
+    Run, taskkill /F /IM AutoHotkey.exe /FI "WINDOWTITLE eq test.ahk"
+    Run, "C:\Users\Chickenfish\Desktop\test.ahk"
+Return
+
+
+
 ;Caps Master		----------------------------------------------------------------------------------------------------
 SetCapsLockState, AlwaysOff
 +CapsLock::SetCapsLockState, % (GetKeyState("CapsLock", "T") ? "Off" : "On")
@@ -122,10 +130,14 @@ img_ipynb()
 }
 
 ;Alpha		----------------------------------------------------------------------------------------------------
-^+8::
+>^>+8::
 sleep, 300
 Send {Alt}hu4{Right}{Enter}
 return
+
+<!Space::
+    win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
+Return
 
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
 RAlt & c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
@@ -197,10 +209,10 @@ RAlt & k::Send %phone%
 
 RAlt & l::Send %LINKEDIN%
 
->!m::Run % "D:\Chickenfish\Music\1A_Main"
+>!m::win_handler("D:\Chickenfish\Music\1A_Main", "1A_Main")
 
->!n::Run Notepad
-^>!n::Run notepad++.exe
+>!n::win_handler("C:\Windows\System32\notepad.exe", "Notepad")
+^>!n::Run "C:\Windows\System32\notepad.exe"
 
 !`::Send {U+00F1}
 
@@ -246,11 +258,7 @@ return
 
 
 #q::
-	Run, C:\RootApps\bin\whats.vbs,, Hide
-	sleep, 2000
-	; Send y&
-	sleep, 500
-	Send {Down}{Enter}
+    win_handler("", "WhatsApp")
 return
 
 RAlt & s::Run % "C:Bolts.pdf"
@@ -311,13 +319,11 @@ return
 ^>!w::Send %GITHUB%
 
 #W::
-    Send, {LWin down}{8 down}
-    Sleep, 5
-    Send, {LWin up}{8 up}
+    win_handler("C:\Users\Chickenfish\AppData\Roaming\Q-Dir\Q-Dir.exe", "Q-Dir 11")
 return
 
 #z::
-FormatTime, datestring,,yyyy-MM-dd
+FormatTime, datestring,, yyyy-MM-dd ;  hh-mm-ss
 Send %datestring%
 return
 
@@ -357,11 +363,12 @@ $Tab::                ;Trigger ($=no self-firing)
   If !ErrorLevel         ;  If released before
     Send {Tab Down}   ;    Say so/do stuff
   Else{                  ;  Or 'Else'...
-    Run "C:\Program Files\Everything\Everything.exe"
+    ;Run "C:\Program Files\Everything\Everything.exe"
+    win_handler("C:\Program Files\Everything\Everything.exe", "Everything")
     KeyWait Tab,T1    ;    Wait T(insert num here)s
     If ErrorLevel        ;    If NOT released in 5s
       Run "C:\Program Files\Zed\zed.exe" "C:\RootApps\bin\1A_Bolts.ahk" ;      Say so/do stuff
-  }                      ;  ...Close 'Else' block
+  }
   KeyWait Tab         ;  Wait until released
   Send {Tab Up}       ;  Revert the pressed key
 return
@@ -493,4 +500,43 @@ clipMaster() {
     Send ^c
     ClipWait, 2
     return Clipboard
+}
+
+win_handler(appPath, windowTitle) {
+    ; Window Open Check
+    WinGet, winList, List
+    windowsFound := false
+    minimizedWindows := false
+    Loop, %winList% {
+        this_window := "ahk_id " winList%A_Index%
+        WinGetTitle, this_title, %this_window%
+
+        if InStr(this_title, windowTitle) {
+            windowsFound := true
+            ; Minimized or not
+            WinGet, winState, MinMax, %this_window%
+            if (winState = -1) { ; If the window is minimized, restore it
+                minimizedWindows := true
+                WinRestore, %this_window%
+            } else {
+                WinMinimize, %this_window%
+            }
+        }
+    }
+
+    ; Launch
+    if (!windowsFound) {
+        if InStr("WhatsApp", windowTitle){
+        	Run, C:\RootApps\bin\whats.vbs,, Hide
+           	sleep, 2500
+           	Send {Down}{Enter}
+        }
+        else{
+            Run, %appPath%
+        }
+    }
+    ; Restore
+    if (minimizedWindows) {
+        return
+    }
 }
