@@ -258,15 +258,13 @@ return
 
 
 #q::
-    win_handler("", "WhatsApp")
+    win_handler("C:\RootApps\bin\whats.vbs", "WhatsApp")
 return
 
 RAlt & s::Run % "C:Bolts.pdf"
 ^#S::Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
 #s::
-    Send, {LWin down}{9 down}
-    Sleep, 5
-    Send, {LWin up}{9 up}
+    win_handler("C:\RootApps\bin\outlook.vbs", "Mail - ")
 return
 
 ; Function to get highlighted text
@@ -526,14 +524,7 @@ win_handler(appPath, windowTitle) {
 
     ; Launch
     if (!windowsFound) {
-        if InStr("WhatsApp", windowTitle){
-        	Run, C:\RootApps\bin\whats.vbs,, Hide
-           	sleep, 2500
-           	Send {Down}{Enter}
-        }
-        else{
-            Run, %appPath%
-        }
+        Run, %appPath%
     }
     ; Restore
     if (minimizedWindows) {
