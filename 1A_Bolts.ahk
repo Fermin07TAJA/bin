@@ -32,6 +32,7 @@ NAMECAPS := config.NAMECAPS
 LINKEDIN := config.LINKEDIN
 GITHUB := config.GITHUB
 PORTFOLIO := config.PORTFOLIO
+direc := config.DIREC
 
 ;Logistics		----------------------------------------------------------------------------------------------------
 #SingleInstance, Force
@@ -71,6 +72,7 @@ SetCapsLockState, AlwaysOff
 	;g
 	i::img_ipynb()
 	>!i::Run % contra
+	j::Send %direc%
 	q::Send {F17}
 	r::Send {U+03A9} ;Ω
 	t::Send &emsp;{Space}
