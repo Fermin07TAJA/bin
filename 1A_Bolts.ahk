@@ -68,6 +68,19 @@ SetCapsLockState, AlwaysOff
 	Tab::Send {F15}
 	`::Send {F16}
 	a::Send {Alt}hfp ;Formtato
+	d::
+	Send, ^d
+	sleep, 150
+    Send, ^c
+    ClipWait, 1
+    selectedText := Clipboard
+    if (RegExMatch(selectedText, "Watch\s+(.*?)\s+English", match))
+    {
+        Clipboard := match1
+        Send, ^v
+    }
+    Return
+
 	;f
 	;g
 	i::img_ipynb()
