@@ -10,6 +10,13 @@
 
 NumpadDiv::
 {
+	Send "{Raw}<div style=`"break-after:page`"></div>"
+	Send "{Enter}{Enter}"
+}
+
+
+NumpadMult::
+{
 	Send "{Ctrl down}c{Ctrl up}"
 	sleep(100)
 	SendInput "{Backspace}"
@@ -27,23 +34,18 @@ NumpadDiv::
 	Send "{Enter}"
 	return
 }
-^NumpadDiv::Send "{Raw}<div style=`"break-after:page`"></div>"
-
-
-NumpadMult::Backspace
-^NumpadMult::^Backspace
-NumpadSub::Delete
-^NumpadSub::^Delete
+;^NumpadMult::^Backspace
+;NumpadSub::Delete
+;^NumpadSub::^Delete
 ;NumpadAdd SCREENSHOT - TAKEN
 
 ;789		----------------------------------------------------------------------------------------------------
 
-NumpadHome::Send "{Raw}_prime"
-+NumpadHome::Send "{Raw}_Delta"
+NumpadHome::Send "{Raw}\therefore"
++NumpadHome::Send "{Raw}Delta"
 ^NumpadHome::Send "{Raw}\delta"
 
 NumpadUp::Send "{Raw}\theta"
-+NumpadUp::Send "{Raw} Replace all equation markers of the type \( and \) with standard $ in answers."
 
 NumpadPgUp::
 {
@@ -82,10 +84,15 @@ NumpadPgUp::
 
 NumpadLeft::Send "{Raw}\cdot"
 +NumpadLeft::Send "*` "
-NumpadClear::Send "{Raw}#V"
-+NumpadClear::Send "{Raw}*u.V"
-NumpadRight::Send "{Raw}#A"
-+NumpadRight::Send "{Raw}*u.A"
+NumpadClear::Send "{F14}"
+^NumpadClear::
+{
+    Send "{Raw}## <span style=`"font-size: large; font-weight: bold;`">Solution </span>"
+    Send "{Enter}"
+    Send "{Raw}<hr style=`"position: relative; top: -29.5px; margin-left: 150px; border-width: 3px; color: #084000; border-color: #084000; border-style: solid;`" />"
+}
+NumpadRight::Send "{Raw}\Rightarrow"
+^NumpadRight::Send "{Raw}\rightarrow"
 
 ;123		----------------------------------------------------------------------------------------------------
 
