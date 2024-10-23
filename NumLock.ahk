@@ -6,6 +6,22 @@
 	Reload()
 }
 
+interrupt()
+{
+    while (1)
+    {
+        Sleep(10)
+        if (GetKeyState("RALT", "P"))
+        {
+            return 1
+        }
+        if (GetKeyState("ESC", "P"))
+        {
+            return 0
+        }
+    }
+}
+
 ;OPERATORS	----------------------------------------------------------------------------------------------------
 
 NumpadDiv::
@@ -51,15 +67,13 @@ NumpadPgUp::
 {
 	IB := InputBox("Enter Symbolic Variable", "Fysh AHK UI", "w300 h100")
 	if (IB.Value = "") {
-    		while (!GetKeyState("RALT", "P")) {
-        		Sleep(10)  ; Check every 100 milliseconds
-    		}
+    	if(interrupt()=1){
     		Send("{Raw}t = Symbol('t')")
+        }
 	} else {
-    		while (!GetKeyState("RALT", "P")) {
-        		Sleep(10)  ; Check every 100 milliseconds
-    		}
+        if(interrupt()=1){
     		Send("{Raw}" IB.Value " = Symbol('" IB.Value "')")
+        }
 	}
 }
 
@@ -71,12 +85,11 @@ NumpadPgUp::
     		MsgBox("Operation cancelled.")
 	} else {
 		IB2 := InputBox("Enter Initial Condition Desired", "Fysh AHK UI", "w300 h100")
-    		while (!GetKeyState("RALT", "P")) {
-        		Sleep(10)  ; Check every 100 milliseconds
-    		}
-    		Send("{Raw}" IB.Value "_num = lambdify(t," IB.Value ",'numpy')")
-		Send("{Enter}")
-		Send("{Raw}" IB.Value "_num(" IB2.Value ")")
+        if(interrupt()=1){
+            Send("{Raw}" IB.Value "_num = lambdify(t," IB.Value ",'numpy')")
+    		Send("{Enter}")
+    		Send("{Raw}" IB.Value "_num(" IB2.Value ")")
+        }
 	}
 }
 
@@ -85,12 +98,42 @@ NumpadPgUp::
 NumpadLeft::Send "{Raw}\cdot"
 +NumpadLeft::Send "*` "
 NumpadClear::Send "{F14}"
+
+
+
+
 ^NumpadClear::
 {
-    Send "{Raw}## <span style=`"font-size: large; font-weight: bold;`">Solution </span>"
-    Send "{Enter}"
-    Send "{Raw}<hr style=`"position: relative; top: -29.5px; margin-left: 150px; border-width: 3px; color: #084000; border-color: #084000; border-style: solid;`" />"
+    ; Store current clipboard content as a binary object
+    originalClipboard := A_Clipboard
+
+    ; Get the result from the InputBox
+    result := InputBox("Solution Header Autoformat", "Problem Solution Title")
+
+    title_sol := result.Value
+
+    if (title_sol = "")
+        Return
+
+    title_pre := "Solution,"
+    margin := (StrLen(title_sol) + StrLen(title_pre) + 1) * 11 - 25
+
+    ; Set the formatted text to the clipboard using A_Clipboard
+    A_Clipboard := "## <span style='font-size: large; font-weight: bold;'>" title_pre " " title_sol "</span><hr style='position: relative; top: -29.5px; margin-left: " margin "px; border-width: 3px; color: #084000; border-color: #084000; border-style: solid;' />"
+
+    ; Wait until the clipboard contains the new content
+    ClipWait
+
+    if(interrupt()=1){
+        Send "^v"
+    }
+
+    Sleep(300)
+    A_Clipboard := originalClipboard
+    ClipWait
 }
+
+
 NumpadRight::Send "{Raw}\Rightarrow"
 ^NumpadRight::Send "{Raw}\rightarrow"
 
@@ -106,11 +149,9 @@ NumpadEnd::Send "{Raw}\frac{"
     		MsgBox("Operation cancelled.")
 	} else {
 		IB2 := InputBox("Enter Denominator", "Fysh AHK UI", "w300 h100")
-    		while (!GetKeyState("RALT", "P")) {
-        		Sleep(10)  ; Check every 100 milliseconds
-    		}
-    		;Send("{Raw}#$\frac{" IB.Value "}{" IB2.Value "}$ ")
+        if(interrupt()=1){
             Send("{Raw}\frac{" IB.Value "}{" IB2.Value "} ")
+        }
 	}
 }
 NumpadDown:: send "{Raw}\cos("
@@ -128,10 +169,9 @@ NumpadIns::Send "{Raw}Omicron = "
     		MsgBox("Operation cancelled.")
 	} else {
 		IB2 := InputBox("Enter Equation", "Fysh AHK UI", "w300 h100")
-    		while (!GetKeyState("RALT", "P")) {
-        		Sleep(10)  ; Check every 100 milliseconds
-    		}
+        if(interrupt()=1){
     		Send("{Raw}" IB.Value "_ = solve(" IB2.Value "," IB.Value ")[0]")
+        }
 	}
 }
 
