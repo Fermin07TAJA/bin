@@ -52,12 +52,29 @@ OK:
 Return
 
 ; RESET Tester Script
-<!F12::
+F24::
     Run, taskkill /F /IM AutoHotkey.exe /FI "WINDOWTITLE eq test.ahk"
     Run, "C:\Users\Chickenfish\Desktop\test.ahk"
 Return
 
-
+; PrtSc Master  ----------------------------------------------------------------------------------------------------
+*PrintScreen::Return ; Block default PrtSc functionality
+#If (GetKeyState("PrintScreen", "P") && !GetKeyState("Shift", "P"))
+    w::Send, {F22}
+    e::Send, {F23}
+    r::Send, {F21}
+    y::Send, {F20}
+    u::Send, {F19}
+    n::
+        Click
+        Loop, 6
+            {
+            sleep, 500
+            Send, n
+            }
+        Send, {Enter}
+    Return
+#If
 
 ;Caps Master		----------------------------------------------------------------------------------------------------
 SetCapsLockState, AlwaysOff
@@ -88,6 +105,7 @@ SetCapsLockState, AlwaysOff
 	j::Send %direc%
 	q::Send {F17}
 	r::Send {U+03A9} ;Ω
+	s::Send {F24}
 	t::Send &emsp;{Space}
 	;u
 	;w
