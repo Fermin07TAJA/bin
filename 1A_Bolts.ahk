@@ -37,6 +37,9 @@ direc := config.DIREC
 ;Logistics		----------------------------------------------------------------------------------------------------
 #SingleInstance, Force
 
+; Chosen Editor
+zed := "C:\Program Files\Zed\zed.exe"
+
 ; RESET
 ^F12::
     Gui, New, +Owner -SysMenu +AlwaysOnTop
@@ -60,7 +63,7 @@ Return
 ; PrtSc Master  ----------------------------------------------------------------------------------------------------
 *PrintScreen::Return ; Block default PrtSc functionality
 #If (GetKeyState("PrintScreen", "P") && !GetKeyState("Shift", "P"))
-    NumpadEnter::Run "C:\Program Files\Zed\zed.exe" "C:\RootApps\bin\Numlock.ahk"
+    NumpadEnter::Run %zed% "C:\RootApps\bin\Numlock.ahk"
     w::Send, {F22}
     e::Send, {F23}
     r::Send, {F21}
@@ -386,7 +389,7 @@ LAlt & RAlt::
 	Clipboard := ClipSave
 
 	;MsgBox, % Filepath
-	Run "C:\Program Files\Zed\zed.exe" "%Filepath%"
+	Run %zed% "%Filepath%"
 return
 
 ;OS Management		----------------------------------------------------------------------------------------------------
@@ -404,7 +407,7 @@ $Tab::                ;Trigger ($=no self-firing)
     win_handler("C:\Program Files\Everything\Everything.exe", " - Everything")
     KeyWait Tab,T1    ;    Wait T(insert num here)s
     If ErrorLevel        ;    If NOT released in 5s
-      Run "C:\Program Files\Zed\zed.exe" "C:\RootApps\bin\1A_Bolts.ahk" ;      Say so/do stuff
+      Run %zed% "C:\RootApps\bin\1A_Bolts.ahk" ;      Say so/do stuff
   }
   KeyWait Tab         ;  Wait until released
   Send {Tab Up}       ;  Revert the pressed key
