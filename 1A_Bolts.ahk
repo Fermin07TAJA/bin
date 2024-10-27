@@ -64,6 +64,8 @@ Return
 *PrintScreen::Return ; Block default PrtSc functionality
 #If (GetKeyState("PrintScreen", "P") && !GetKeyState("Shift", "P"))
     NumpadEnter::Run %zed% "C:\RootApps\bin\Numlock.ahk"
+    0::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9168\Discord.exe", " - Discord")
+
     w::Send, {F22}
     e::Send, {F23}
     r::Send, {F21}
@@ -80,9 +82,6 @@ Return
     Return
 
     s::win_handler("C:\Users\Chickenfish\AppData\Local\slack\slack.exe", " - Slack")
-    d::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9168\Discord.exe", " - Discord")
-
-    v::Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
 
     ; Run PowerShell as Administrator
     T::
@@ -115,6 +114,9 @@ Return
         }
     }
     return
+
+    v::Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
+
 #If
 
 ;Caps Master		----------------------------------------------------------------------------------------------------
