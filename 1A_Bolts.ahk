@@ -60,6 +60,7 @@ Return
 ; PrtSc Master  ----------------------------------------------------------------------------------------------------
 *PrintScreen::Return ; Block default PrtSc functionality
 #If (GetKeyState("PrintScreen", "P") && !GetKeyState("Shift", "P"))
+    NumpadEnter::Run "C:\Program Files\Zed\zed.exe" "C:\RootApps\bin\Numlock.ahk"
     w::Send, {F22}
     e::Send, {F23}
     r::Send, {F21}
@@ -74,6 +75,43 @@ Return
             }
         Send, {Enter}
     Return
+
+    s::win_handler("C:\Users\Chickenfish\AppData\Local\slack\slack.exe", " - Slack")
+    d::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9168\Discord.exe", " - Discord")
+
+    v::Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
+
+    ; Run PowerShell as Administrator
+    T::
+    {
+        path := GetHighlightedText()
+        if (path != "")
+        {
+            path := StrReplace(path, "\", "\\")
+            Run, *RunAs pwsh.exe -NoExit -Command "Set-Location -LiteralPath '%path%'", , RunAs
+        }
+        else
+        {
+            Run, pwsh.exe, , RunAs
+        }
+    }
+    return
+
+    ; Run PowerShell
+    >!T::
+    {
+        path := GetHighlightedText()
+        if (path != "")
+        {
+            path := StrReplace(path, "\", "\\")
+            Run, pwsh.exe -NoExit -Command "Set-Location -LiteralPath '%path%'", , Normal
+        }
+        else
+        {
+            Run, pwsh.exe
+        }
+    }
+    return
 #If
 
 ;Caps Master		----------------------------------------------------------------------------------------------------
@@ -295,9 +333,9 @@ return
 return
 
 RAlt & s::Run % "C:Bolts.pdf"
-^#S::Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
 #s::
-    win_handler("C:\RootApps\bin\outlook.vbs", "Mail - ")
+    win_handler("C:\RootApps\bin\outlook.lnk", "Mail - ")
+    ;win_handler("C:\RootApps\bin\outlook.vbs", "Mail - ")
 return
 
 ; Function to get highlighted text
@@ -308,38 +346,6 @@ GetHighlightedText()
     ClipWait, 1               ; Wait for the clipboard to contain data
     return Clipboard
 }
-
-; Run PowerShell as Administrator
-#T::
-{
-    path := GetHighlightedText()
-    if (path != "")
-    {
-        path := StrReplace(path, "\", "\\")
-        Run, *RunAs pwsh.exe -NoExit -Command "Set-Location -LiteralPath '%path%'", , RunAs
-    }
-    else
-    {
-        Run, pwsh.exe, , RunAs
-    }
-}
-return
-
-; Run PowerShell
->!T::
-{
-    path := GetHighlightedText()
-    if (path != "")
-    {
-        path := StrReplace(path, "\", "\\")
-        Run, pwsh.exe -NoExit -Command "Set-Location -LiteralPath '%path%'", , Normal
-    }
-    else
-    {
-        Run, pwsh.exe
-    }
-}
-return
 
 #u::Send {Raw}`%`%render sci_not 3
 >!u::Send {Raw}`%`%render short 3
@@ -395,7 +401,7 @@ $Tab::                ;Trigger ($=no self-firing)
     Send {Tab Down}   ;    Say so/do stuff
   Else{                  ;  Or 'Else'...
     ;Run "C:\Program Files\Everything\Everything.exe"
-    win_handler("C:\Program Files\Everything\Everything.exe", "Everything")
+    win_handler("C:\Program Files\Everything\Everything.exe", " - Everything")
     KeyWait Tab,T1    ;    Wait T(insert num here)s
     If ErrorLevel        ;    If NOT released in 5s
       Run "C:\Program Files\Zed\zed.exe" "C:\RootApps\bin\1A_Bolts.ahk" ;      Say so/do stuff
