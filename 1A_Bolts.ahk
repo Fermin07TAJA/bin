@@ -64,6 +64,7 @@ Return
 *PrintScreen::Return ; Block default PrtSc functionality
 #If (GetKeyState("PrintScreen", "P") && !GetKeyState("Shift", "P"))
     NumpadEnter::Run %zed% "C:\RootApps\bin\Numlock.ahk"
+    NumpadAdd::Run * "C:\RootApps\pm\wbhk.ps1"
     0::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9168\Discord.exe", " - Discord")
 
     w::Send, {F22}
