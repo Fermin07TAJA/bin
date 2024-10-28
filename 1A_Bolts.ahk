@@ -88,6 +88,13 @@ Return
         Send, {Enter}
     Return
 
+    ; FSAE MASTER, Weekly
+    f::Run % "https://docs.google.com/spreadsheets/d/1FmOXR6D-jeyJmyBriq8Hzz1BQ5pjE82IgwO-I1mIsw8/edit?gid=2058464649#gid=2058464649"
+    ^f::Run % "https://canvas.cornell.edu/courses/66952/modules"
+
+    ; TODO
+    g::Run % "https://drive.google.com/drive/folders/1gGONr5472x-Q0M8pyKTg3RSKLh50_QK1"
+
     s::win_handler("C:\Users\Chickenfish\AppData\Local\slack\slack.exe", " - Slack")
 
     ; Run PowerShell as Administrator
