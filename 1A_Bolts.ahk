@@ -61,10 +61,16 @@ F24::
 Return
 
 ; PrtSc Master  ----------------------------------------------------------------------------------------------------
+^NumpadAdd::Run * %A_ScriptDir%\..\pm\feedsend.ps1
+
 *PrintScreen::Return ; Block default PrtSc functionality
 #If (GetKeyState("PrintScreen", "P") && !GetKeyState("Shift", "P"))
     NumpadEnter::Run %zed% "C:\RootApps\bin\Numlock.ahk"
-    NumpadAdd::Run * "C:\RootApps\pm\wbhk.ps1"
+    ;NumpadAdd::Run * "C:\RootApps\pm\wbhk.ps1"
+    NumpadAdd::Run * %A_ScriptDir%\..\pm\cadsend.ps1
+    ^NumpadAdd::Run * %A_ScriptDir%\..\pm\quotessend.ps1
+
+
     0::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9168\Discord.exe", " - Discord")
 
     w::Send, {F22}
@@ -286,7 +292,7 @@ RAlt & k::Send %phone%
 
 RAlt & l::Send %LINKEDIN%
 
->!m::win_handler("D:\Chickenfish\Music\1A_Main", "1A_Main")
+>!m::Run * %A_ScriptDir%\..\pm\musisend.ps1
 
 >!n::win_handler("C:\Windows\System32\notepad.exe", "Notepad")
 ^>!n::Run "C:\Windows\System32\notepad.exe"
