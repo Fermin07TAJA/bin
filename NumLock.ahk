@@ -34,7 +34,9 @@ NumpadDiv::
 NumpadMult::
 {
     Send("^c")
+    Sleep 250
     clp := A_Clipboard
+    Clipwait
     clp := StrReplace(clp, A_Space, "+")
     Run("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe https://duck.com/?q=" clp)
 }
