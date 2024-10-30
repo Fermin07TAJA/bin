@@ -137,6 +137,11 @@ Return
 
     v::Run % "D:\SFX\SFX_DCSB\SadViolin.mp3"
 
+    z::
+        FormatTime, datestring,, yyyy-MM-dd ;  hh-mm-ss
+        Send % "PAZ_JOAQUIN_Resume_" datestring "_(){Left}"
+    return
+
 #If
 
 ;Caps Master		----------------------------------------------------------------------------------------------------
@@ -418,6 +423,7 @@ return
 FormatTime, datestring,, yyyy-MM-dd ;  hh-mm-ss
 Send %datestring%
 return
+
 
 ;Text Editing		----------------------------------------------------------------------------------------------------
 LCtrl & RCtrl::
