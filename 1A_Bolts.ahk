@@ -193,6 +193,17 @@ SetCapsLockState, AlwaysOff
 	;u
 	;w
 
+    y::
+    InputBox, yt_search, YTSrch, Search,, 300, 100
+    if ErrorLevel {
+        MsgBox, Nope.
+    } else {
+        yt_search := "https://www.youtube.com/results?search_query=" . yt_search
+        StringReplace, yt_search, yt_search, %A_Space%, +, All
+        Run, "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" %yt_search%
+    }
+    return
+
 	;ASCII ---------------------------
 
 	Right::Send {U+1F89C}{U+1F89C}{U+1F89C}{U+1F89C}{U+1F89C}{U+1F872} ; 🢜🢜🢜🢜🢜🡲

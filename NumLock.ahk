@@ -33,23 +33,15 @@ NumpadDiv::
 
 NumpadMult::
 {
-	Send "{Ctrl down}c{Ctrl up}"
-	sleep(100)
-	SendInput "{Backspace}"
-	sleep(100)
-	Send "{Ctrl down}v{Ctrl up}"
-	sleep(400)
-	Send "{LWin down}3{LWin up}"
-	sleep(1111)
-	Send "{Ctrl down}t{Ctrl up}"
-	sleep(100)
-	Send "{Ctrl down}l{Ctrl up}"
-	sleep(100)
-	Send "{Ctrl down}v{Ctrl up}"
-	sleep(100)
-	Send "{Enter}"
-	return
+    Send("^c")
+    clp := A_Clipboard
+    clp := StrReplace(clp, A_Space, "+")
+    Run("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe https://duck.com/?q=" clp)
 }
+return
+
+
+
 ;^NumpadMult::^Backspace
 ;NumpadSub::Delete
 ;^NumpadSub::^Delete
@@ -104,12 +96,8 @@ NumpadClear::Send "{F14}"
 
 ^NumpadClear::
 {
-    ; Store current clipboard content as a binary object
     originalClipboard := A_Clipboard
-
-    ; Get the result from the InputBox
     result := InputBox("Solution Header Autoformat", "Problem Solution Title")
-
     title_sol := result.Value
 
     if (title_sol = "")
@@ -118,10 +106,7 @@ NumpadClear::Send "{F14}"
     title_pre := "Solution,"
     margin := (StrLen(title_sol) + StrLen(title_pre) + 1) * 11 - 25
 
-    ; Set the formatted text to the clipboard using A_Clipboard
     A_Clipboard := "## <span style='font-size: large; font-weight: bold;'>" title_pre " " title_sol "</span><hr style='position: relative; top: -29.5px; margin-left: " margin "px; border-width: 3px; color: #084000; border-color: #084000; border-style: solid;' />"
-
-    ; Wait until the clipboard contains the new content
     ClipWait
 
     if(interrupt()=1){
