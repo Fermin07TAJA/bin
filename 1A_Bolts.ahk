@@ -1,6 +1,12 @@
 #Persistent
 CoordMode, Mouse, Screen
 
+; Language Cycler
+global messages, arrayLength, langIndex
+messages := Object(1, "English (United States)", 2, "Spanish (Mexico)", 3, "Vietnamese", 4, "French (Switzerland)", 5, "Chinese (Simplified, China)", 6, "Japanese IME", 7, "Japanese Pinyin")
+arrayLength := messages.MaxIndex()
+langIndex := 2
+
 ;Password Manager	----------------------------------------------------------------------------------------------------
 cfp := A_ScriptDir "\..\pm\pm.ini"
 ReadConfig(filePath) {
@@ -139,6 +145,26 @@ SetCapsLockState, AlwaysOff
 
 #If (GetKeyState("CapsLock", "P") && !GetKeyState("Shift", "P"))
     ;-------------------------------------------------------------------------------------------
+    ;v Language Cycler ------------------
+    Space::
+        langcycle()
+    return
+    langcycle() {
+        global langIndex, messages, arrayLength
+        currentMessage := messages[langIndex]
+        Tooltip, % currentMessage ", " langIndex " of " arrayLength
+        langIndex++
+        if (langIndex > arrayLength) {
+            langIndex := 1
+        }
+        Send, {RWin Down}{Space}{RWin Up}
+        SetTimer, RemoveTooltip, -1000
+    }
+    RemoveTooltip:
+        Tooltip
+    return
+    ;^                 ------------------
+
 	Tab::Send {F15}
 	`::Send {F16}
 	a::Send {Alt}hfp ;Formtato
@@ -225,9 +251,8 @@ sleep, 300
 Send {Alt}hu4{Right}{Enter}
 return
 
-<!Space::
-    win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
-Return
+#Space::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9168\Discord.exe", " - Discord")
+<!Space::win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
 
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
 RAlt & c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
