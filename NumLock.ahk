@@ -1,10 +1,14 @@
 ﻿#Requires AutoHotkey v2.0
+SetTimer ToolTip, -400
+ToolTip("Numlock Script Active")
 
 ^!F12::
 {
-	MsgBox("Num Reset")
+    ToolTip("Numlock Script Reset")
+    Sleep 150
 	Reload()
 }
+
 
 interrupt()
 {
