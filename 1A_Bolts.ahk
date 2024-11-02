@@ -7,6 +7,12 @@ messages := Object(1, "English (United States)", 2, "Spanish (Mexico)", 3, "Viet
 arrayLength := messages.MaxIndex()
 langIndex := 2
 
+; DCB
+^+F9::Run, % "C:\RootApps\bin\IAmChicken.lnk"
+global hwnd := 0
++F9::iamchickenhide()
+^!F9::RestoreWindow()
+
 ;Password Manager	----------------------------------------------------------------------------------------------------
 cfp := A_ScriptDir "\..\pm\pm.ini"
 ReadConfig(filePath) {
@@ -629,5 +635,27 @@ win_handler(appPath, windowTitle) {
     ; Restore
     if (minimizedWindows) {
         return
+    }
+}
+
+iamchickenhide() {
+    global hwnd
+    WinGet, hwnd, ID, ahk_class CASCADIA_HOSTING_WINDOW_CLASS ahk_exe WindowsTerminal.exe
+    if (hwnd) {
+        WinHide, ahk_id %hwnd%
+        TrayTip, Python Script, IAmChicken Terminal Hidden
+    } else {
+        TrayTip, Could not find the terminal window.
+    }
+}
+
+RestoreWindow() {
+    global hwnd
+    if (hwnd) {
+        WinShow, ahk_id %hwnd%
+        WinActivate, ahk_id %hwnd%
+        TrayTip, Python Script, IAmChicken Terminal Open
+    } else {
+        TrayTip, No stored window handle found. Please reopen the window.
     }
 }
