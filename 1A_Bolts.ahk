@@ -7,12 +7,6 @@ messages := Object(1, "English (United States)", 2, "Spanish (Mexico)", 3, "Viet
 arrayLength := messages.MaxIndex()
 langIndex := 2
 
-; DCB
-^+F9::Run, % "C:\RootApps\bin\IAmChicken.lnk"
-global hwnd := 0
-+F9::iamchickenhide()
-^!F9::RestoreWindow()
-
 ;Password Manager	----------------------------------------------------------------------------------------------------
 cfp := A_ScriptDir "\..\pm\pm.ini"
 ReadConfig(filePath) {
@@ -400,7 +394,8 @@ return
 
 RAlt & s::Run % "C:Bolts.pdf"
 #s::
-    win_handler("C:\RootApps\bin\outlook.lnk", "Mail - ")
+    win_handler("thunderbird.exe", "Mozilla Thunderbird")
+    ;win_handler("C:\RootApps\bin\outlook.lnk", "Mail - ")
     ;win_handler("C:\RootApps\bin\outlook.vbs", "Mail - ")
 return
 
@@ -619,10 +614,14 @@ win_handler(appPath, windowTitle) {
             windowsFound := true
             ; Minimized or not
             WinGet, winState, MinMax, %this_window%
+
             if (winState = -1) { ; If the window is minimized, restore it
                 minimizedWindows := true
                 WinRestore, %this_window%
             } else {
+                if (InStr(this_title, "Mozilla Thunderbird")){
+                    Process, Close, %appPath%
+                }
                 WinMinimize, %this_window%
             }
         }
@@ -637,6 +636,15 @@ win_handler(appPath, windowTitle) {
         return
     }
 }
+
+;F Series		----------------------------------------------------------------------------------------------------
+
+^+F9::Run, % "C:\RootApps\bin\IAmChicken.lnk"
+
+global hwnd := 0
+
++F9::iamchickenhide()
+^!F9::RestoreWindow()
 
 iamchickenhide() {
     global hwnd
