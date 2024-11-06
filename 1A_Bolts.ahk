@@ -40,11 +40,11 @@ GITHUB := config.GITHUB
 PORTFOLIO := config.PORTFOLIO
 direc := config.DIREC
 
+; Chosen Editor
+zed := config.ZED
+
 ;Logistics		----------------------------------------------------------------------------------------------------
 #SingleInstance, Force
-
-; Chosen Editor
-zed := "C:\Program Files\Zed\zed.exe"
 
 ; RESET
 ^F12::
