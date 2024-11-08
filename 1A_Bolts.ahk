@@ -267,7 +267,7 @@ sleep, 300
 Send {Alt}hu4{Right}{Enter}
 return
 
-#Space::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9168\Discord.exe", " - Discord")
+#Space::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9169\Discord.exe", " - Discord")
 <!Space::win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
 
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
@@ -577,6 +577,7 @@ F14::
     StringReplace, Clipboard, Clipboard, \], $, All
     StringReplace, Clipboard, Clipboard, \(, $, All
     StringReplace, Clipboard, Clipboard, \), $, All
+    StringReplace, Clipboard, Clipboard, np.pi, pi, All
     Clipboard := RegExReplace(Clipboard, "\s\*\s", "*")
     Clipboard := RegExReplace(Clipboard, "\s/\s", "/")
 return
