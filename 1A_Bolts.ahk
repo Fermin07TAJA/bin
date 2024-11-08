@@ -577,6 +577,8 @@ F14::
     StringReplace, Clipboard, Clipboard, \], $, All
     StringReplace, Clipboard, Clipboard, \(, $, All
     StringReplace, Clipboard, Clipboard, \), $, All
+    Clipboard := RegExReplace(Clipboard, "\s\*\s", "*")
+    Clipboard := RegExReplace(Clipboard, "\s/\s", "/")
 return
 
 ; Degree Delta
