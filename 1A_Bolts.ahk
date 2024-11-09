@@ -1,6 +1,9 @@
 #Persistent
 CoordMode, Mouse, Screen
 
+global mkd_dir, SourceFolder
+SourceFolder := "D:\Chickenfish\Pictures\Screenshots\"
+
 ; Language Cycler
 global messages, arrayLength, langIndex
 messages := Object(1, "English (United States)", 2, "Spanish (Mexico)", 3, "Vietnamese", 4, "French (Switzerland)", 5, "Chinese (Simplified, China)", 6, "Japanese IME", 7, "Japanese Pinyin")
@@ -196,6 +199,44 @@ SetCapsLockState, AlwaysOff
 	s::Send {F24}
 	t::Send &emsp;{Space}
 	;u
+
+    ; VSCode Image Pasting
+    v::
+        ; Logistics
+        if !mkd_dir
+        {
+            InputBox, mkd_dir, Set Destination Folder, Please enter the destination folder path:
+            if ErrorLevel  ; If user cancels the prompt
+            {
+                MsgBox, Controlled Pasting Canceled.
+                return
+            }
+            if (SubStr(mkd_dir, 0) != "\")
+                mkd_dir .= "\"
+            img_dir := mkd_dir . "img\"
+            if !FileExist(img_dir)
+                FileCreateDir, %img_dir%
+        }
+
+        ; Process
+        Loop, Files, %SourceFolder%*.*
+        {
+            if (A_LoopFileTimeModified > NewestTime) {
+                NewestTime := A_LoopFileTimeModified
+                NewestFile := A_LoopFileLongPath
+                NewestFileName := A_LoopFileName
+            }
+        }
+
+        ; Paste
+        FileCopy, %NewestFile%, %img_dir%%NewestFileName%, 1
+        MarkdownPath := "<img src=""./img/" NewestFileName """ width=""600""/>"
+        Clipboard := MarkdownPath
+        ClipWait
+        Send, ^v
+    return
+
+
 	;w
 
     y::
