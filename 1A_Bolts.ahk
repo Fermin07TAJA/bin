@@ -373,6 +373,8 @@ RAlt & l::Send %LINKEDIN%
     WinGetPos,,, Width, Height
     WinMove, A,, (A_ScreenWidth - Width) / 2, (A_ScreenHeight - Height) / 2
 
+    Send, {Tab}
+
     Return
 
     EXTRACT:
