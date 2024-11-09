@@ -272,7 +272,7 @@ return
 
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
 RAlt & c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
-#c::win_handler("C:\Program Files\Altium\AD24\AltiumMS.exe","- Altium Designer Professional")
+#c::win_handler("C:\Program Files\Altium\AD24\X2.EXE","- Altium Designer Professional")
 
 RAlt & d::Send %THROWPASS%
 LAlt & d::Send %THROWEMAIL%
