@@ -272,6 +272,7 @@ return
 
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
 RAlt & c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
+#c::win_handler("C:\Program Files\Altium\AD24\AltiumMS.exe","- Altium Designer Professional")
 
 RAlt & d::Send %THROWPASS%
 LAlt & d::Send %THROWEMAIL%
@@ -621,9 +622,11 @@ win_handler(appPath, windowTitle) {
             if (winState = -1) { ; If the window is minimized, restore it
                 minimizedWindows := true
                 WinRestore, %this_window%
+                WinActivate, %this_window%
             } else {
-                if (InStr(this_title, "Mozilla Thunderbird")){
-                    Process, Close, %appPath%
+                if !WinActive(this_window) {
+                    WinActivate, %this_window%
+                    return
                 }
                 WinMinimize, %this_window%
             }
