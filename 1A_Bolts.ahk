@@ -230,7 +230,7 @@ SetCapsLockState, AlwaysOff
 
         ; Paste
         FileCopy, %NewestFile%, %img_dir%%NewestFileName%, 1
-        MarkdownPath := "<img src=""./img/" NewestFileName """ width=""600""/>"
+        MarkdownPath := "<center><img src=""./img/" NewestFileName """ width=""600""/></center>"
         Clipboard := MarkdownPath
         ClipWait
         Send, ^v
