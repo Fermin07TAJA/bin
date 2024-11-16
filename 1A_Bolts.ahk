@@ -79,8 +79,15 @@ Return
     NumpadAdd::Run * %A_ScriptDir%\..\pm\cadsend.ps1
     ^NumpadAdd::Run * %A_ScriptDir%\..\pm\quotessend.ps1
 
+    .::
+        Send, ^x
+        Sleep, 500
+        Clipboard := Clipboard
+        formattedText := "$\overset{exists}{" Clipboard "}$"
+        Send, {RAW}%formattedText%
+    Return
 
-    0::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9168\Discord.exe", " - Discord")
+    0::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9170\Discord.exe", " - Discord")
 
     w::Send, {F22}
     e::Send, {F23}
@@ -308,7 +315,7 @@ sleep, 300
 Send {Alt}hu4{Right}{Enter}
 return
 
-#Space::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9169\Discord.exe", " - Discord")
+#Space::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9170\Discord.exe", " - Discord")
 <!Space::win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
 
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
