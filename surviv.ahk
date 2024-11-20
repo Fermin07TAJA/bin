@@ -8,16 +8,16 @@ global susk := false
 *CapsLock::ShowModeTooltip("CapsLock")
 
 ; Pills
-*0::consume(5.5)
+;*0::consume(5.5)
 
 ; Frag
-*4::frag()
+;*4::frag()
 
 ; Bandage
-*7::consume(3)
+;*7::consume(3)
 
 ; NRG Drink
-*9::consume(3)
+;*9::consume(3)
 
 ; Mosin Switch
 *e::sniper(3)

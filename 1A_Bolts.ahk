@@ -319,7 +319,8 @@ return
 <!Space::win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
 
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
-RAlt & c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
+>!c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
+<!c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Workflow.md"
 #c::win_handler("C:\Program Files\Altium\AD24\X2.EXE","- Altium Designer Professional")
 
 RAlt & d::Send %THROWPASS%
