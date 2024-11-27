@@ -110,7 +110,7 @@ NumpadClear::Send "{F14}"
         Return
 
     title_pre := "Solution,"
-    margin := (StrLen(title_sol) + StrLen(title_pre) + 1) * 10 - 25
+    margin := (StrLen(title_sol) + StrLen(title_pre) + 1) * 10 - 10
 
     A_Clipboard := "## <span style='font-size: large; font-weight: bold;'>" title_pre " " title_sol "</span><hr style='position: relative; top: -29.5px; margin-left: " margin "px; border-width: 3px; color: #084000; border-color: #084000; border-style: solid;' />"
     ClipWait
