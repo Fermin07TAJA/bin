@@ -111,6 +111,49 @@ Return
     ; TODO
     g::Run % "https://drive.google.com/drive/folders/1gGONr5472x-Q0M8pyKTg3RSKLh50_QK1"
 
+    ; Latex Line Combiner
+    l::
+        Clipboard := ""
+        Send, ^c
+        ClipWait, 1
+
+        if (Clipboard != "") {
+            OriginalText := Clipboard
+            ; Normalize line endings to `\n` - bc windows uses different
+            OriginalText := StrReplace(OriginalText, "`r`n", "`n")
+            OriginalText := StrReplace(OriginalText, "`r", "`n")
+
+            ; Filet the fish
+            Lines := StrSplit(OriginalText, "`n")
+            Result := ""
+            i := 1
+
+            ; Cook the fish
+            while (i <= Lines.Length()) {
+                if (Trim(Lines[i]) = "$") { ; Check if the current line is just "$"
+                    ; Look ahead two lines to check for another "$"
+                    if ((i + 2 <= Lines.Length()) && (Trim(Lines[i + 2]) = "$")) {
+                        ; Combine everything between the $...$
+                        Combined := Trim(Lines[i + 1]) ; Middle line
+                        Result .= "$" . Combined . "$`n"
+                        i += 2 ; Skip the next two lines
+                    } else {
+                        Result .= Lines[i] . "`n" ; Add the current line as-is
+                    }
+                } else {
+                    Result .= Lines[i] . "`n" ; Add non-$ lines as-is
+                }
+                i++
+            }
+
+            ; Restore the fish
+            Result := StrReplace(Result, "`n", "`r`n")
+            Clipboard := Result
+            Send, ^v ; Paste the reformatted content
+        }
+    return
+
+
     s::win_handler("C:\Users\Chickenfish\AppData\Local\slack\slack.exe", " - Slack")
 
     ; Run PowerShell as Administrator
