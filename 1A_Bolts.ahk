@@ -87,7 +87,7 @@ Return
         Send, {RAW}%formattedText%
     Return
 
-    0::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9171\Discord.exe", " - Discord")
+    0::win_handler("C:\RootApps\bin\discord.vbs", " - Discord")
 
     w::Send, {F22}
     e::Send, {F23}
@@ -358,7 +358,7 @@ sleep, 300
 Send {Alt}hu4{Right}{Enter}
 return
 
-#Space::win_handler("C:\Users\Chickenfish\AppData\Local\Discord\app-1.0.9171\Discord.exe", " - Discord")
+#Space::win_handler("C:\RootApps\bin\discord.vbs", " - Discord")
 <!Space::win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
 
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
