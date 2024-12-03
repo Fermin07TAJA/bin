@@ -79,13 +79,19 @@ Return
     NumpadAdd::Run * %A_ScriptDir%\..\pm\cadsend.ps1
     ^NumpadAdd::Run * %A_ScriptDir%\..\pm\quotessend.ps1
 
+    ; PDF EXTENSION STRIPPER
     .::
-        Send, ^x
-        Sleep, 500
-        Clipboard := Clipboard
-        formattedText := "$\overset{exists}{" Clipboard "}$"
-        Send, {RAW}%formattedText%
-    Return
+        ClipSaved := ClipboardAll
+        Clipboard := ""
+        Send, ^a
+        Send, ^c
+        ClipWait, 2
+        SelectedText := Clipboard
+        NewText := RegExReplace(SelectedText, "\.[^.]+$") ; Remove everything after the last dot
+        SendInput, %NewText%
+        Clipboard := ClipSaved ; Restore clipboard
+    return
+
 
     0::win_handler("C:\RootApps\bin\discord.vbs", " - Discord")
 
