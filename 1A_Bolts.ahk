@@ -250,7 +250,9 @@ SetCapsLockState, AlwaysOff
 	i::img_ipynb()
 	>!i::Run % contra
 	j::Send %direc%
-	q::Send {F17}
+
+	q::Send ^!{Tab}
+    
 	r::Send {U+03A9} ;Ω
 	s::Send {F24}
 	t::Send &emsp;{Space}
@@ -573,56 +575,8 @@ $Tab::                ;Trigger ($=no self-firing)
   Send {Tab Up}       ;  Revert the pressed key
 return
 
-; AltTab Replacement
-<!Tab::
-{
-    list := ""
-    Menu, windows, Add
-    Menu, windows, deleteAll
-    WinGet, id, list
-    Loop, %id%
-    {
-        this_ID := id%A_Index%
-        WinGetTitle, title, ahk_id %this_ID%
-        If (title = "")
-            continue
-        If (!IsWindow(WinExist("ahk_id" . this_ID)))
-            continue
-        Menu, windows, Add, %title%, ActivateTitle
-        WinGet, Path, ProcessPath, ahk_id %this_ID%
-        Try
-            Menu, windows, Icon, %title%, %Path%,, 0
-        Catch
-            Menu, windows, Icon, %title%, %A_WinDir%\System32\SHELL32.dll, 3, 0
-    }
-    CoordMode, Mouse, Screen
-    ;MouseMove, (0.4*A_ScreenWidth), (0.35*A_ScreenHeight)
-    CoordMode, Menu, Screen
-    Xm := (0.25*A_ScreenWidth)
-    Ym := (0.25*A_ScreenHeight)
-    Menu, windows, Show, %Xm%, %Ym%
-}
+;AltTabWasHere
 
-ActivateTitle:
-    SetTitleMatchMode 3
-    WinActivate, %A_ThisMenuItem%
-return
-
-IsWindow(hWnd){
-    WinGet, dwStyle, Style, ahk_id %hWnd%
-    if ((dwStyle&0x08000000) || !(dwStyle&0x10000000)) {
-        return false
-    }
-    WinGet, dwExStyle, ExStyle, ahk_id %hWnd%
-    if (dwExStyle & 0x00000080) {
-        return false
-    }
-    WinGetClass, szClass, ahk_id %hWnd%
-    if (szClass = "TApplication") {
-        return false
-    }
-    return true
-}
 
 ;Media Management	----------------------------------------------------------------------------------------------------
 
