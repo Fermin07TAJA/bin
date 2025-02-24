@@ -512,9 +512,14 @@ GetHighlightedText()
 }
 
 #u::Send {Raw}`%`%render sci_not 3
->!u::Send {Raw}`%`%render short 3
-^>!u::Send {Raw}`%`%render long 3
+^>!u::Send {Raw}`%`%render short 3
+>!u::Send {Raw}`%`%render long 3
 +>!u::Send {Raw}`%`%render params
+
+#If GetKeyState("Space", "P")
+    u::Send sci_not
+#If
+
 
 >!w::Send %PORTFOLIO%
 ^>!w::Send %GITHUB%
