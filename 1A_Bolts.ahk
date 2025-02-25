@@ -128,6 +128,7 @@ Return
             ; Normalize line endings to `\n` - bc windows uses different
             OriginalText := StrReplace(OriginalText, "`r`n", "`n")
             OriginalText := StrReplace(OriginalText, "`r", "`n")
+            OriginalText := StrReplace(OriginalText, "**", "")
 
             ; Filet the fish
             Lines := StrSplit(OriginalText, "`n")
@@ -629,6 +630,14 @@ winmove()
     WinGet, active_id, ID, A
     WinMove, ahk_id %active_id%,, xpos, ypos
 }
+
+; GPT Delimiter Shortcut
+F10::
+    Tooltip, "Copied and formatted"
+    Send {Click}
+    Send {F14}
+    SetTimer, RemoveTooltip, -1000
+return
 
 ; GPT Delimiter - Reformat to Markdown
 F14::
