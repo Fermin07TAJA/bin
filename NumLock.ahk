@@ -61,6 +61,12 @@ return
     Send "`n"
 }
 
+!^NumpadSub:: {
+    Send "{Raw}## <span style='font-size: large; font-weight: bold;'>"
+    Send "`n"
+    Send "{Raw}</span><hr style='position: relative; margin: 0; width: 94%; border-color: rgba(255, 182, 193, 0.5); border-style: solid; background-color: rgba(255, 182, 193, 0.5);border-width: 28px; top: 68px;'/>"
+    Send "`n"
+}
 
 
 ;^NumpadSub::^Delete
