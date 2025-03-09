@@ -49,7 +49,20 @@ return
 
 
 ;^NumpadMult::^Backspace
-;NumpadSub::Delete
+; ^NumpadSub:: {
+;     Send "{Raw}$$\colorbox{ffb6c1}{$\textcolor{black}{\begin{aligned}\end{aligned}}$}$$"
+;     Send "{Left 18}"
+;     Send "`r`n`r`n"
+; }
+^NumpadSub:: {
+    Send "{Raw}## <span style='font-size: large; font-weight: bold;'>"
+    Send "`n"
+    Send "{Raw}</span><hr style='position: relative; margin: 0; width: 94%; border-color: rgba(255, 182, 193, 0.5); border-style: solid; background-color: rgba(255, 182, 193, 0.5);border-width: 18px; top: 48px;'/>"
+    Send "`n"
+}
+
+
+
 ;^NumpadSub::^Delete
 ;NumpadAdd SCREENSHOT - TAKEN
 
@@ -124,6 +137,31 @@ NumpadClear::Send "{F14}"
     ClipWait
 }
 
+
+!NumpadClear::
+{
+    originalClipboard := A_Clipboard
+    result := InputBox("Notes Header Autoformat", "Problem Solution Title")
+    title_sol := result.Value
+
+    if (title_sol = "")
+        Return
+
+    title_pre := "NOTE:    "
+    margin := (StrLen(title_sol) + StrLen(title_pre) + 1) * 10 - 10
+
+    A_Clipboard := "### <span style='font-size: large; font-weight: bold;'>" title_pre " " title_sol "</span><hr style='position: relative; top: -29.5px; margin-left: " margin "px; border-width: 3px; color: rgb(255, 106, 0); border-color: rgb(255, 106, 0); border-style: solid;' />`r`n`r`n`r`n`r`n### <span style='font-size: large; font-weight: bold;'>:)</span><hr style='position: relative; top: -29.5px; margin-left: 60px; border-width: 3px; color: rgb(255, 106, 0); border-color: rgb(255, 106, 0); border-style: solid;' />" 
+
+    ClipWait
+
+    if(interrupt()=1){
+        Send "^v"
+    }
+
+    Sleep(300)
+    A_Clipboard := originalClipboard
+    ClipWait
+}
 
 NumpadRight::Send "{Raw}\Rightarrow"
 ^NumpadRight::Send "{Raw}\rightarrow"
