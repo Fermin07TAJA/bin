@@ -42,7 +42,7 @@ NumpadMult::
     clp := A_Clipboard
     Clipwait
     clp := StrReplace(clp, A_Space, "+")
-    Run("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe https://duck.com/?q=" clp)
+    Run("C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe https://duck.com/?q=" clp)
 }
 return
 
@@ -54,17 +54,24 @@ return
 ;     Send "{Left 18}"
 ;     Send "`r`n`r`n"
 ; }
+; ^NumpadSub:: {
+;     Send "{Raw}## <span style='font-size: large; font-weight: bold;'>"
+;     Send "`n"
+;     Send "{Raw}</span><hr style='position: relative; margin: 0; width: 94%; border-color: rgba(255, 182, 193, 0.5); border-style: solid; background-color: rgba(255, 182, 193, 0.5);border-width: 18px; top: 48px;'/>"
+;     Send "`n"
+; }
 ^NumpadSub:: {
-    Send "{Raw}## <span style='font-size: large; font-weight: bold;'>"
-    Send "`n"
-    Send "{Raw}</span><hr style='position: relative; margin: 0; width: 94%; border-color: rgba(255, 182, 193, 0.5); border-style: solid; background-color: rgba(255, 182, 193, 0.5);border-width: 18px; top: 48px;'/>"
+    Send "{Raw}<div style='position: relative; width: 100%; min-height: 0px;'><div style='position: absolute;top: -10px; left: -5px; width: 100%; background-color: rgba(255, 182, 193, 0.2);  z-index: -1; border-style: solid; border-color: rgba(255, 182, 193, 1); height: 40px;'></div></div>"
     Send "`n"
 }
 
-!^NumpadSub:: {
-    Send "{Raw}## <span style='font-size: large; font-weight: bold;'>"
+<!NumpadSub:: {
+    Send "{Raw}<div style='position: relative; width: 100%; min-height: 0px;'><div style='position: absolute;top: -10px; left: -5px; width: 100%; background-color: rgba(255, 182, 193, 0.2);  z-index: -1; border-style: solid; border-color: rgba(255, 182, 193, 1); height: 55px;'></div></div>"
     Send "`n"
-    Send "{Raw}</span><hr style='position: relative; margin: 0; width: 94%; border-color: rgba(255, 182, 193, 0.5); border-style: solid; background-color: rgba(255, 182, 193, 0.5);border-width: 28px; top: 68px;'/>"
+}
+
+>!NumpadSub:: {
+    Send "{Raw}<div style='position: relative; width: 100%; min-height: 0px;'><div style='position: absolute;top: -10px; left: -5px; width: 100%; background-color: rgba(255, 182, 193, 0.2);  z-index: -1; border-style: solid; border-color: rgba(255, 182, 193, 1); height: 90px;'></div></div>"
     Send "`n"
 }
 
