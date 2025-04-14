@@ -370,10 +370,12 @@ return
 #Space::win_handler("C:\RootApps\bin\discord.vbs", " - Discord")
 <!Space::win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
 
+LAlt & b::Send <br>
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
 >!c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
 <!c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Workflow.md"
-#c::win_handler("C:\Program Files\Altium\AD24\X2.EXE","- Altium Designer Professional")
+#c::Send {F20}
+
 
 RAlt & d::Send %THROWPASS%
 LAlt & d::Send %THROWEMAIL%
