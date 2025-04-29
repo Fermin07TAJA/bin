@@ -305,7 +305,7 @@ SetCapsLockState, AlwaysOff
     } else {
         yt_search := "https://www.youtube.com/results?search_query=" . yt_search
         StringReplace, yt_search, yt_search, %A_Space%, +, All
-        Run, "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" %yt_search%
+        Run, "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe" %yt_search%
     }
     return
 
@@ -330,21 +330,13 @@ SetCapsLockState, AlwaysOff
 		Run, %OutDir%  ; Open file location
 	return
 
-	;WinManager ---------------------------
-
-	F1::
-		winmove()
-		sleep, 500
-		WinMaximize, A
-	return
-
 	;365Manager ---------------------------
-	1::Send {Alt}jpaac ;Center Image
-
+	1::Send {Alt}jptwo ;Wrap Image
+	; w::Send {Alt}jpaac ;Center Image
 	f::Send {Alt}jpsow{Down}{Down}{Down}{Down}{Down}{Down}{Enter} ;Frame
 	g::Send {Alt}jpagg ;Group
 	u::Send {Alt}jpagu ;Ungroup
-	w::Send {Alt}jptwo ;Wrap Image
+    w::win_handler("C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE", ".docx - Word")
     ;-------------------------------------------------------------------------------------------
 
 #If
