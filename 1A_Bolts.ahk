@@ -336,7 +336,7 @@ SetCapsLockState, AlwaysOff
 	f::Send {Alt}jpsow{Down}{Down}{Down}{Down}{Down}{Down}{Enter} ;Frame
 	g::Send {Alt}jpagg ;Group
 	u::Send {Alt}jpagu ;Ungroup
-    w::win_handler("C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE", ".docx - Word")
+    w::win_handler("C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE", " - Word")
     ;-------------------------------------------------------------------------------------------
 
 #If
@@ -419,7 +419,8 @@ return
 
 
 
->!g::Run % "https://chatgpt.com"
+>!g::win_handler("https://chatgpt.com", "ChatGPT")
+; Run % "https://chatgpt.com"
 
 >!i::Run % itinerario
 ^>!i::Run % anime
