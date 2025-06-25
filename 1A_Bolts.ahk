@@ -1,8 +1,5 @@
 #Persistent
-CoordMode, Mouse, Screen
-
-global mkd_dir, SourceFolder
-SourceFolder := "D:\Chickenfish\Pictures\Screenshots\"
+#SingleInstance, Force
 
 ; Language Cycler
 global messages, arrayLength, langIndex
@@ -46,8 +43,137 @@ direc := config.DIREC
 ; Chosen Editor
 zed := config.ZED
 
+; Copy Ko        --------------------------------------------------------------------------------------------------
+global miniExcelData := []
+global miniExcelFile := A_ScriptDir "\mini_excel.txt"
+global listening := false
+
+#If (listening)
+^c::
+    CopyKo_Intercept()
+return
+#If
+
+#c::
+    listening := !listening
+    if (listening) {
+        LoadMiniExcelData()
+        CopyKo_ShowGui()
+    } else {
+        Gui, MiniExcel:Hide
+    }
+return
+
+CopyKo_Intercept() {
+    ClipSaved := ClipboardAll
+    Clipboard := ""
+    Send ^c
+    ClipWait, 1
+    if (ErrorLevel) {
+        Clipboard := ClipSaved
+        return
+    }
+    val := Clipboard
+    InputBox, tag, Copyk, Tag for:`n%val%
+    if (ErrorLevel || tag = "") {
+        Clipboard := ClipSaved
+        return
+    }
+    CopyKo_AddRow(tag, val)
+    Clipboard := ClipSaved
+}
+
+CopyKo_AddRow(tag, val) {
+    global miniExcelData, miniExcelFile
+    miniExcelData.Push([tag, val])
+    FileAppend, % tag "`t" val "`n", %miniExcelFile%
+    CopyKo_ShowGui() ; Refresh GUI
+}
+
+CopyKo_ShowGui() {
+    global miniExcelData
+    Gui, MiniExcel:Destroy
+    Gui, MiniExcel:New, +AlwaysOnTop -Caption +ToolWindow
+    Gui, MiniExcel:Font, s9, Segoe UI
+    Gui, MiniExcel:Add, Text, w300 Center, Copyko
+
+    ypos := 30
+    for idx, row in miniExcelData {
+        tag := row[1]
+        val := row[2]
+        Gui, MiniExcel:Add, Text, x10 y%ypos% w100, %tag%
+        Gui, MiniExcel:Add, Text, x120 y%ypos% w150, %val%
+        Gui, MiniExcel:Add, Button, gCopyKo_CopyTag x280 y%ypos% w50 hwndhTagBtn, Tag
+        GuiControl,, %hTagBtn%, % "Tag " idx
+        Gui, MiniExcel:Add, Button, gCopyKo_CopyVal x335 y%ypos% w50 hwndhValBtn, Val
+        GuiControl,, %hValBtn%, % "Val " idx
+        ypos += 30
+    }
+
+    Gui, MiniExcel:Add, Button, gCopyKo_CloseGui x130 y+10 w60, Close
+    Gui, MiniExcel:Add, Button, gCopyKo_Clear x+5 yp w60, Clear
+    Gui, MiniExcel:Add, Button, gCopyKo_Reload x+5 yp w60, Reload
+
+    SysGet, Monitor, MonitorWorkArea
+    xpos := MonitorRight - 1025
+    ypos := MonitorTop + 50
+    Gui, MiniExcel:Show, x%xpos% y%ypos% NoActivate, Mini Excel
+}
+
+CopyKo_CopyTag:
+CopyKo_CopyVal:
+    parts := StrSplit(A_GuiControl, " ")
+    idx := parts[2]
+    if (InStr(A_ThisLabel, "Tag"))
+        Clipboard := miniExcelData[idx][1]
+    else
+        Clipboard := miniExcelData[idx][2]
+return
+
+CopyKo_Clear:
+    global miniExcelData, miniExcelFile
+    miniExcelData := []
+    FileDelete, %miniExcelFile%
+    CopyKo_ShowGui()
+    TrayTip, Mini Excel, Data cleared., 2
+return
+
+CopyKo_CloseGui:
+    Gui, MiniExcel:Hide
+    global listening := false
+return
+
+CopyKo_Reload:
+    global miniExcelData
+    miniExcelData := []
+    LoadMiniExcelData()
+    CopyKo_ShowGui()
+    TrayTip, Mini Excel, Data reloaded from file., 2
+return
+
+LoadMiniExcelData() {
+    global miniExcelData, miniExcelFile
+    miniExcelData := []
+    if FileExist(miniExcelFile) {
+        Loop, Read, %miniExcelFile%
+        {
+            fields := StrSplit(A_LoopReadLine, A_Tab)
+            if (fields[1] != "" && fields[2] != "")
+                miniExcelData.Push([fields[1], fields[2]])
+        }
+    }
+}
+; CopyKo END ---------------------- ------------------- ------------- -------- ----- --- 
+
+
+CoordMode, Mouse, Screen
+
+global mkd_dir, SourceFolder
+SourceFolder := "D:\Chickenfish\Pictures\Screenshots\"
+
+
+
 ;Logistics		----------------------------------------------------------------------------------------------------
-#SingleInstance, Force
 
 ; RESET
 ^F12::
@@ -68,6 +194,68 @@ F24::
     Run, taskkill /F /IM AutoHotkey.exe /FI "WINDOWTITLE eq test.ahk"
     Run, "C:\Users\Chickenfish\Desktop\test.ahk"
 Return
+
+; Folder RunFiles --------------------------------------------------------------------------------------------------
+~RButton::
+    KeyWait, LButton, D T1
+    if ErrorLevel
+        return  ; T(sec)
+
+    Sleep, 500
+    Filepath := clipMaster()
+    Filepath := StrReplace(Filepath, """", "")
+
+    SplitPath, A_ScriptFullPath, , ScriptDir
+    IniFile := ScriptDir . "\fl.ini"
+    if FileExist(IniFile) {
+        Loop, Read, %IniFile%
+        {
+            line := A_LoopReadLine
+            if (Trim(line) = "")
+                continue
+            ; RegExMatch(line, """(.*)"",""(.*)""", m)
+            ; RegExMatch(line, "^(?:""(.*?)""|([^,]+)),(.*)$", m)
+            ; if (m1 && m2) {
+                parts := StrSplit(line, ",", , 2)
+                path := Trim(parts[1], """ ") ; removes quotes and spaces
+                runfile := Trim(parts[2], """ ")
+                ; path := m1
+                ; runfile := m2
+                Filepath := RTrim(Filepath, "\")
+                path := RTrim(path, "\")
+
+                ; MsgBox, Clipboard path: %Filepath%`nINI path: %path%
+
+                if (Filepath = path) {
+                    if (RegExMatch(runfile, "^[A-Za-z]:\\|^\\\\")) {
+                        ; MsgBox, Running absolute: %runfile%
+                        SplitPath, runfile, , runDir
+                        Run, %runfile%, %runDir%
+                        ; Run, %runfile%
+                        return
+                    }
+                    fullrun := Filepath . "\" . runfile
+                    if FileExist(fullrun) {
+                        ; MsgBox, Running in folder: %fullrun%
+                        Run, %fullrun%, %Filepath%
+                        return
+                    } else {
+                        MsgBox, Fallback: %runfile%
+                        if (runfile != ""){
+                            ; Run, %runfile%
+                            SplitPath, runfile, , runDir
+                            Run, %runfile%, %runDir%
+                        } else
+                            MsgBox, No runfile specified for %Filepath%
+                        return
+                    }
+                }
+        }
+    } else {
+        MsgBox, fl.ini missing
+    }
+return
+
 
 ; PrtSc Master  ----------------------------------------------------------------------------------------------------
 ^NumpadAdd::Run * %A_ScriptDir%\..\pm\feedsend.ps1
@@ -366,7 +554,6 @@ LAlt & b::Send <br>
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
 >!c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Calc.ipynb"
 <!c::Run % "D:\Chickenfish\Code\ScratchPad\1A_Workflow.md"
-#c::Send {F20}
 
 
 RAlt & d::Send %THROWPASS%
