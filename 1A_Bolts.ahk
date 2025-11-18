@@ -37,6 +37,10 @@ direc := config.DIREC
 ; Chosen Editor
 zed := config.ZED
 
+; Screenshots Folder
+global mkd_dir, SourceFolder
+SourceFolder := "D:\Chickenfish\Pictures\Screenshots\"
+
 ; Copy Ko        --------------------------------------------------------------------------------------------------
 global miniExcelData := []
 global miniExcelFile := A_ScriptDir "\mini_excel.txt"
@@ -162,8 +166,7 @@ LoadMiniExcelData() {
 
 CoordMode, Mouse, Screen
 
-global mkd_dir, SourceFolder
-SourceFolder := "D:\Chickenfish\Pictures\Screenshots\"
+
 
 
 
@@ -522,7 +525,7 @@ Send {Alt}hu4{Right}{Enter}
 return
 
 #Space::win_handler("C:\RootApps\bin\discord.vbs", " - Discord")
-<!Space::win_handler("C:\Users\Chickenfish\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Visual Studio Code")
+<!Space::win_handler("C:\Program Files\Microsoft VS Code\Code.exe", "Visual Studio Code")
 
 LAlt & b::Send <br>
 RAlt & b::Run % "https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx"
@@ -791,12 +794,12 @@ winmove()
 RemoveTooltip:
     Tooltip
 return
-F10::
-    Tooltip, "Copied and formatted"
-    Send {Click}
-    Send {F14}
-    SetTimer, RemoveTooltip, -1000
-return
+; F10::
+;     Tooltip, "Copied and formatted"
+;     Send {Click}
+;     Send {F14}
+;     SetTimer, RemoveTooltip, -1000
+; return
 
 ; GPT Delimiter - Reformat to Markdown
 F14::
