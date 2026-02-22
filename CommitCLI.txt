@@ -4,7 +4,7 @@ git add -A
 git commit -m "something"
 //THRU GH CLI
 gh auth login
-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
+
 gh repo create LEGAL --private --source=. --remote=origin --push
 //Optional for new repo: git remote add origin https://github.com/USERNAME/REPONAME.git
 git branch -M main
