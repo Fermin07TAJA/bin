@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotkey Map (AHK v2)</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="icon" type="image/x-icon" href="/static/cat.ico">
+</head>
+<body>
+  <header class="topbar">
+    <button id="rerunBtn" class="btn btn-ghost">↻ Rerun</button>
+    <div class="brand">Hotkey Map</div>
+    <div class="spacer"></div>
+    <div id="status" class="status">Ready</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Keyboard Hotkey Overview</h1>
+      <p>Click a key to view comments aggregated from your AHK v2 sources.</p>
+    </section>
+
+    <!-- Keyboard deck: main block, nav cluster, numpad -->
+    <section class="board">
+      <!-- MAIN (alphanumeric) -->
+      <div class="kb main">
+        <!-- Function row -->
+        <div class="row fx-row">
+          <div class="key k-esc" data-key="ESC">Esc</div>
+          <div class="fx-gap"></div>
+          <div class="key k-f" data-key="F1">F1</div>
+          <div class="key k-f" data-key="F2">F2</div>
+          <div class="key k-f" data-key="F3">F3</div>
+          <div class="key k-f" data-key="F4">F4</div>
+          <div class="fx-gap"></div>
+          <div class="key k-f" data-key="F5">F5</div>
+          <div class="key k-f" data-key="F6">F6</div>
+          <div class="key k-f" data-key="F7">F7</div>
+          <div class="key k-f" data-key="F8">F8</div>
+          <div class="fx-gap"></div>
+          <div class="key k-f" data-key="F9">F9</div>
+          <div class="key k-f" data-key="F10">F10</div>
+          <div class="key k-f" data-key="F11">F11</div>
+          <div class="key k-f" data-key="F12">F12</div>
+        </div>
+
+        <!-- Number row -->
+        <div class="row num-row">
+          <div class="key" data-key="`">`</div>
+          <div class="key" data-key="1">1</div>
+          <div class="key" data-key="2">2</div>
+          <div class="key" data-key="3">3</div>
+          <div class="key" data-key="4">4</div>
+          <div class="key" data-key="5">5</div>
+          <div class="key" data-key="6">6</div>
+          <div class="key" data-key="7">7</div>
+          <div class="key" data-key="8">8</div>
+          <div class="key" data-key="9">9</div>
+          <div class="key" data-key="0">0</div>
+          <div class="key" data-key="-">-</div>
+          <div class="key" data-key="=">=</div>
+          <div class="key wide" data-key="BACKSPACE">Backspace</div>
+        </div>
+
+        <!-- Q row -->
+        <div class="row q-row">
+          <div class="key wide" data-key="TAB">Tab</div>
+          <div class="key letter" data-key="Q">Q</div>
+          <div class="key letter" data-key="W">W</div>
+          <div class="key letter" data-key="E">E</div>
+          <div class="key letter" data-key="R">R</div>
+          <div class="key letter" data-key="T">T</div>
+          <div class="key letter" data-key="Y">Y</div>
+          <div class="key letter" data-key="U">U</div>
+          <div class="key letter" data-key="I">I</div>
+          <div class="key letter" data-key="O">O</div>
+          <div class="key letter" data-key="P">P</div>
+          <div class="key" data-key="[">[</div>
+          <div class="key" data-key="]">]</div>
+          <div class="key wide-ish" data-key="\\">\</div>
+        </div>
+
+        <!-- A row -->
+        <div class="row a-row">
+          <div class="key caps wide-ish" data-key="CAPS">Caps</div>
+          <div class="key letter" data-key="A">A</div>
+          <div class="key letter" data-key="S">S</div>
+          <div class="key letter" data-key="D">D</div>
+          <div class="key letter" data-key="F">F</div>
+          <div class="key letter" data-key="G">G</div>
+          <div class="key letter" data-key="H">H</div>
+          <div class="key letter" data-key="J">J</div>
+          <div class="key letter" data-key="K">K</div>
+          <div class="key letter" data-key="L">L</div>
+          <div class="key" data-key=";">;</div>
+          <div class="key" data-key="'">'</div>
+          <div class="key enter extra-wide" data-key="ENTER">Enter</div>
+        </div>
+
+        <!-- Z row -->
+        <div class="row z-row">
+          <div class="key shift extra-wide" data-key="LSHIFT">Shift</div>
+          <div class="key letter" data-key="Z">Z</div>
+          <div class="key letter" data-key="X">X</div>
+          <div class="key letter" data-key="C">C</div>
+          <div class="key letter" data-key="V">V</div>
+          <div class="key letter" data-key="B">B</div>
+          <div class="key letter" data-key="N">N</div>
+          <div class="key letter" data-key="M">M</div>
+          <div class="key" data-key=",">,</div>
+          <div class="key" data-key=".">.</div>
+          <div class="key" data-key="/">/</div>
+          <div class="key shift extra-wide" data-key="RSHIFT">Shift</div>
+        </div>
+
+        <!-- Bottom row -->
+        <div class="row bottom-row">
+          <div class="key" data-key="LCTRL">Ctrl</div>
+          <div class="key" data-key="LWIN">Win</div>
+          <div class="key" data-key="LALT">Alt</div>
+          <div class="key space space-wide" data-key="SPACE">Space</div>
+          <div class="key" data-key="RALT">Alt</div>
+          <div class="key" data-key="RWIN">Win</div>
+          <div class="key" data-key="MENU">Menu</div>
+          <div class="key" data-key="RCTRL">Ctrl</div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION CLUSTER -->
+      <div class="kb nav">
+        <div class="row nav-top">
+          <div class="key small" data-key="PRTSC">PrtSc</div>
+          <div class="key small" data-key="SCRLK">ScrLk</div>
+          <div class="key small" data-key="PAUSE">Pause</div>
+        </div>
+
+        <div class="row nav-mid">
+          <div class="key small" data-key="INSERT">Ins</div>
+          <div class="key small" data-key="HOME">Home</div>
+          <div class="key small" data-key="PGUP">PgUp</div>
+        </div>
+
+        <div class="row nav-bot">
+          <div class="key small" data-key="DELETE">Del</div>
+          <div class="key small" data-key="END">End</div>
+          <div class="key small" data-key="PGDN">PgDn</div>
+        </div>
+
+        <div class="arrows">
+          <div class="key small blank"></div>
+          <div class="key small" data-key="UP">↑</div>
+          <div class="key small blank"></div>
+          <div class="key small" data-key="LEFT">←</div>
+          <div class="key small" data-key="DOWN">↓</div>
+          <div class="key small" data-key="RIGHT">→</div>
+        </div>
+      </div>
+
+      <!-- NUMPAD -->
+      <div class="kb numpad">
+        <div class="row nump-top">
+          <div class="key small" data-key="NUMLK">Num</div>
+          <div class="key small" data-key="NUM/">/</div>
+          <div class="key small" data-key="NUM*">*</div>
+          <div class="key small" data-key="NUM-">-</div>
+        </div>
+
+        <div class="grid nump-grid">
+          <div class="key" data-key="NUM7">7</div>
+          <div class="key" data-key="NUM8">8</div>
+          <div class="key" data-key="NUM9">9</div>
+          <div class="key tall" data-key="NUM+">+</div>
+
+          <div class="key" data-key="NUM4">4</div>
+          <div class="key" data-key="NUM5">5</div>
+          <div class="key" data-key="NUM6">6</div>
+
+          <div class="key" data-key="NUM1">1</div>
+          <div class="key" data-key="NUM2">2</div>
+          <div class="key" data-key="NUM3">3</div>
+          <div class="key tall" data-key="ENTER">Enter</div>
+
+          <div class="key wide" data-key="NUM0">0</div>
+          <div class="key" data-key="NUM.">.</div>
+        </div>
+      </div>
+
+      <!-- F13–F24 row (inside .kb.main so it inherits row grid) -->
+      <div class="row fx2-row">
+        <div class="key k-f" data-key="F13">F13</div>
+        <div class="key k-f" data-key="F14">F14</div>
+        <div class="key k-f" data-key="F15">F15</div>
+        <div class="key k-f" data-key="F16">F16</div>
+        <div class="key k-f" data-key="F17">F17</div>
+        <div class="key k-f" data-key="F18">F18</div>
+        <div class="key k-f" data-key="F19">F19</div>
+        <div class="key k-f" data-key="F20">F20</div>
+        <div class="key k-f" data-key="F21">F21</div>
+        <div class="key k-f" data-key="F22">F22</div>
+        <div class="key k-f" data-key="F23">F23</div>
+        <div class="key k-f" data-key="F24">F24</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating info panel -->
+  <div id="infoPanel" class="info-panel hidden">
+    <div class="info-header">
+      <span id="infoTitle">Key</span>
+      <button id="closeInfo" class="btn btn-ghost">✕</button>
+    </div>
+    <div id="infoBody" class="info-body"></div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

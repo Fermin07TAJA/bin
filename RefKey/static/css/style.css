@@ -1,0 +1,261 @@
+:root {
+  --bg: #0b0f19;
+  --surface: #121829;
+  --surface-2: #1a2240;
+  --text: #e6e8f0;
+  --muted: #a9b0c3;
+  --primary: #6ea8fe;
+  --accent: #9b8cff;
+  --ok: #3ddc97;
+  --warn: #ffbd2e;
+
+  /* Keyboard sizing units */
+  --unit: 56px;                 /* base key width */
+  --unit-h: 52px;               /* base key height */
+  --gap: 8px;
+  --radius: 10px;
+  --border: #303a6b;
+  --shadow: 0 2px 0 #0a0e1f, inset 0 1px 0 #2a3358;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, #1f2a4a 0%, transparent 60%),
+    radial-gradient(800px 400px at 80% -20%, #2d1b69 0%, transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+/* Top bar */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; background: rgba(18, 24, 41, 0.8);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1f2a4a;
+}
+.brand { font-weight: 600; letter-spacing: 0.2px; }
+.spacer { flex: 1; }
+.status { color: var(--muted); font-size: 0.9rem; }
+.btn {
+  cursor: pointer;
+  border: 1px solid #2a3358;
+  background: var(--surface);
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.btn:hover { border-color: var(--primary); }
+.btn-ghost { background: transparent; border-color: #2a3358; }
+
+/* Page container */
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 16px 80px; }
+.hero { margin-bottom: 16px; }
+.hero h1 { margin: 0 0 8px 0; }
+.hero p { margin: 0; color: var(--muted); }
+
+/* Board: 3 blocks - main, nav cluster, numpad */
+.board {
+  display: grid;
+  /* widen main and the other two columns to prevent overlap */
+  grid-template-columns: 1000px 220px 280px;
+  gap: 24px;
+  align-items: start;
+}
+
+
+/* Keyboard blocks */
+.kb { user-select: none; }
+
+/* MAIN block rows */
+.kb.main .row {
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+.fx-row {
+  grid-template-columns: repeat(1, var(--unit)) 24px repeat(4, var(--unit)) 24px repeat(4, var(--unit));
+}
+.num-row {
+  grid-template-columns: repeat(13, var(--unit)) calc(var(--unit) * 2);
+}
+.q-row {
+  grid-template-columns: calc(var(--unit) * 1.5) repeat(10, var(--unit)) calc(var(--unit)) calc(var(--unit)) calc(var(--unit) * 1.5);
+}
+.a-row {
+  grid-template-columns: calc(var(--unit) * 1.8) repeat(9, var(--unit)) var(--unit) var(--unit) calc(var(--unit) * 2.2);
+}
+.z-row {
+  grid-template-columns: calc(var(--unit) * 2.2) repeat(7, var(--unit)) var(--unit) var(--unit) var(--unit) calc(var(--unit) * 2.2);
+}
+.bottom-row {
+  grid-template-columns: var(--unit) var(--unit) var(--unit) calc(var(--unit) * 6) var(--unit) var(--unit) var(--unit) var(--unit);
+}
+
+/* NAV cluster */
+.kb.nav {
+  display: grid;
+  gap: var(--gap);
+  grid-template-rows: auto auto auto auto;
+}
+.kb.nav .row {
+  display: grid;
+  grid-template-columns: repeat(3, var(--unit));
+  gap: var(--gap);
+}
+.kb.nav .arrows {
+  display: grid;
+  grid-template-columns: repeat(3, var(--unit));
+  grid-template-rows: repeat(2, var(--unit-h));
+  gap: var(--gap);
+}
+
+/* NUMPAD */
+.kb.numpad {
+  display: grid;
+  gap: var(--gap);
+  grid-template-rows: auto 1fr;
+}
+.kb.numpad .nump-top {
+  display: grid;
+  grid-template-columns: repeat(4, var(--unit));
+  gap: var(--gap);
+}
+.kb.numpad .nump-grid {
+  display: grid;
+  grid-template-columns: repeat(4, var(--unit));
+  grid-auto-rows: var(--unit-h);
+  gap: var(--gap);
+}
+
+/* Numpad explicit placement: 4 columns x 4 rows */
+.kb.numpad .nump-grid > .key[data-key="NUM7"] { grid-column: 1; grid-row: 1; }
+.kb.numpad .nump-grid > .key[data-key="NUM8"] { grid-column: 2; grid-row: 1; }
+.kb.numpad .nump-grid > .key[data-key="NUM9"] { grid-column: 3; grid-row: 1; }
+
+/* NUM+ is tall at far right spanning two rows (rows 1–2) */
+.kb.numpad .nump-grid > .key[data-key="NUM+"] {
+  grid-column: 4;
+  grid-row: 1 / span 2;
+}
+
+/* Middle rows */
+.kb.numpad .nump-grid > .key[data-key="NUM4"] { grid-column: 1; grid-row: 2; }
+.kb.numpad .nump-grid > .key[data-key="NUM5"] { grid-column: 2; grid-row: 2; }
+.kb.numpad .nump-grid > .key[data-key="NUM6"] { grid-column: 3; grid-row: 2; }
+
+.kb.numpad .nump-grid > .key[data-key="NUM1"] { grid-column: 1; grid-row: 3; }
+.kb.numpad .nump-grid > .key[data-key="NUM2"] { grid-column: 2; grid-row: 3; }
+.kb.numpad .nump-grid > .key[data-key="NUM3"] { grid-column: 3; grid-row: 3; }
+
+/* Numpad Enter is tall on the right spanning rows 3–4 */
+.kb.numpad .nump-grid > .key[data-key="ENTER"] {
+  grid-column: 4;
+  grid-row: 3 / span 2;
+}
+
+/* Bottom row: NUM0 spans two columns; NUM. sits in col 3 */
+.kb.numpad .nump-grid > .key[data-key="NUM0"] {
+  grid-column: 1 / span 2;   /* spans col 1–2 */
+  grid-row: 4;
+}
+.kb.numpad .nump-grid > .key[data-key="NUM."] {
+  grid-column: 3;
+  grid-row: 4;
+}
+
+/* (Optional) ensure tall keys center nicely */
+.kb.numpad .tall {
+  grid-row: span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Keys */
+.key {
+  display: flex; align-items: center; justify-content: center;
+  height: var(--unit-h);
+  min-width: var(--unit);
+  background: linear-gradient(180deg, #1f2644 0%, #1a1f3b 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform .05s ease, background .2s ease, border-color .2s ease;
+}
+.key:hover { border-color: var(--accent); }
+.key:active { transform: translateY(1px); }
+
+.key.small { min-width: calc(var(--unit) - 8px); height: calc(var(--unit-h) - 6px); }
+.key.wide { min-width: calc(var(--unit) * 2); }
+.key.wide-ish { min-width: calc(var(--unit) * 1.5); }
+.key.extra-wide { min-width: calc(var(--unit) * 2.25); }
+.space-wide { min-width: calc(var(--unit) * 6); }
+.k-f { min-width: calc(var(--unit) - 6px); }
+.fx-gap { width: 24px; }
+.blank { visibility: hidden; }
+
+/* Semantics */
+.letter { cursor: pointer; }
+.letter.has-map { outline: 2px solid var(--ok); outline-offset: -2px; }
+/* Also highlight any non-letter key that has data (e.g., digits) */
+.key.has-map { outline: 2px solid var(--ok); outline-offset: -2px; }
+.caps, .shift, .enter, .space { text-transform: none; }
+
+/* Floating info panel */
+.info-panel {
+  position: fixed;
+  left: 20px;
+  top: 120px;                 /* below the topbar */
+  bottom: 20px;               /* full height between topbar and bottom */
+  width: 360px;
+  background: var(--surface);
+  border: 1px solid #2a3358;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+}
+.info-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px; border-bottom: 1px solid #2a3358;
+}
+.info-body {
+  padding: 12px;
+  overflow: auto;
+  /* fill the vertical space of the sidebar */
+  flex: 1 1 auto;
+}
+
+
+/* Responsive tweaks */
+@media (max-width: 1400px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+  .kb.numpad, .kb.nav {
+    grid-column: 1 / -1;
+  }
+}
+
+/* F13–F24 straight row: regular key size */
+.fx2-row {
+  display: grid;                         /* ensures grid even if outside .kb.main */
+  grid-auto-flow: column;
+  gap: var(--gap);
+  grid-template-columns: repeat(12, var(--unit));
+  margin-top: 8px;
+}
+
+/* Optional: make F-keys use the small height if you prefer tighter function rows */
+/* Comment out if you want identical height to alpha keys */
+.k-f {
+  min-width: calc(var(--unit) - 6px);
+  height: calc(var(--unit-h) - 6px);
+}

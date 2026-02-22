@@ -1,0 +1,344 @@
+{
+  "updated_at": "2026-02-22T04:45:09.140593Z",
+  "letters": {
+    "SPACE": {
+      "General": [
+        "MSTeams"
+      ],
+      "OS Permanents": [
+        "AOT"
+      ]
+    },
+    "N": {
+      "General": [
+        "Notepad"
+      ]
+    },
+    "Q": {
+      "General": [
+        "MS Outlook"
+      ]
+    },
+    "W": {
+      "General": [
+        "Q-Dir"
+      ],
+      "CapsMaster": [
+        "Word"
+      ]
+    },
+    "8": {
+      "General": [
+        "Degree Delta"
+      ]
+    },
+    "B": {
+      "General": [
+        "Break <br>",
+        "Tap Chart"
+      ]
+    },
+    "D": {
+      "General": [
+        "Password / email quick inserts"
+      ],
+      "CapsMaster": [
+        "Anime Bookmarks Name Cleaner"
+      ]
+    },
+    "Y": {
+      "General": [
+        "joaquin.paz@cat.com",
+        "PWD Corporate"
+      ],
+      "CapsMaster": [
+        "YT Search"
+      ]
+    },
+    "J": {
+      "General": [
+        "Name",
+        "+NAME",
+        "Main Cluster (EMail)",
+        "Main Cluster (EMail)",
+        "Main Cluster (EMail)"
+      ]
+    },
+    "K": {
+      "General": [
+        "Phun Nombur"
+      ]
+    },
+    "O": {
+      "General": [
+        "Alt Cluster (EMail)",
+        "Alt Cluster (EMail)",
+        "Alt Cluster (EMail)"
+      ]
+    },
+    "P": {
+      "General": [
+        "Extract from zip file"
+      ]
+    },
+    "I": {
+      "CapsMaster": [
+        "CNTRA"
+      ],
+      "OS Permanents": [
+        "Itinerario"
+      ]
+    },
+    "R": {
+      "CapsMaster": [
+        "Ω"
+      ]
+    },
+    "T": {
+      "CapsMaster": [
+        "Terminal @Folder"
+      ],
+      "OS Permanents": [
+        "Terminal @C Drive"
+      ]
+    },
+    "RIGHT": {
+      "CapsMaster": [
+        "🢜🢜🢜🢜🢜🡲"
+      ]
+    },
+    "LEFT": {
+      "CapsMaster": [
+        "🡰🢜🢜🢜🢜"
+      ]
+    },
+    "DOWN": {
+      "CapsMaster": [
+        "🡳"
+      ]
+    },
+    "UP": {
+      "CapsMaster": [
+        "🡱"
+      ]
+    },
+    "A": {
+      "CapsMaster": [
+        "Word: Format"
+      ]
+    },
+    "1": {
+      "CapsMaster": [
+        "Word: Wrap Image"
+      ]
+    },
+    "F": {
+      "CapsMaster": [
+        "Word: Frame"
+      ]
+    },
+    "G": {
+      "CapsMaster": [
+        "Word: Center?"
+      ]
+    },
+    "U": {
+      "CapsMaster": [
+        "Word: Center?"
+      ]
+    },
+    "C": {
+      "CopyKo": [
+        "#c opens clipboard miniexcel"
+      ]
+    },
+    "L": {
+      "Insomniac": [
+        "(>!) Win-Lock Substitute"
+      ],
+      "PrtSc": [
+        "Latex Line Combiner"
+      ]
+    },
+    "E": {
+      "OS Permanents": [
+        "Control Panel"
+      ]
+    },
+    "`": {
+      "OS Permanents": [
+        "ñ"
+      ]
+    },
+    "S": {
+      "OS Permanents": [
+        "Bolts PDF"
+      ]
+    },
+    "X": {
+      "OS Permanents": [
+        "Cut Line"
+      ]
+    },
+    "Z": {
+      "OS Permanents": [
+        "Date @(yyyy-MM-dd)"
+      ]
+    },
+    "NUM+": {
+      "OS Permanents": [
+        "Feed"
+      ],
+      "PrtSc": [
+        "NumpadEnter:: Run(zed \" \" \"C:\\RootApps\\bin\\Numlock.ahk\")"
+      ]
+    },
+    "TAB": {
+      "OS Permanents": [
+        "Voidtools and Edit Self"
+      ]
+    },
+    "HOME": {
+      "OS Permanents": [
+        "Play / Pause"
+      ]
+    },
+    "END": {
+      "OS Permanents": [
+        "Prev Track"
+      ]
+    },
+    "INSERT": {
+      "OS Permanents": [
+        "Next Track"
+      ]
+    },
+    "F13": {
+      "FootPedals": [
+        "Ctrl M"
+      ]
+    },
+    "F14": {
+      "FootPedals": [
+        "Win Tab"
+      ]
+    },
+    "F17": {
+      "FootPedals": [
+        "Ctrl q"
+      ]
+    },
+    "F18": {
+      "FootPedals": [
+        "Ctrl a"
+      ]
+    },
+    "F16": {
+      "FootPedals": [
+        "Ctrl d"
+      ]
+    },
+    "F15": {
+      "FootPedals": [
+        "Q-Dir toggle"
+      ]
+    },
+    "F19": {
+      "FootPedals": [
+        "Ctrl Shift O (Letter)"
+      ]
+    },
+    "F22": {
+      "FootPedals": [
+        "Katamani: Outlook toggle by Inbox title fragment"
+      ]
+    },
+    "F20": {
+      "FootPedals": [
+        "Teams (Store path) toggle"
+      ]
+    },
+    "0": {
+      "PrtSc": [
+        "WinHandler --------------------------------------"
+      ]
+    },
+    ".": {
+      "PrtSc": [
+        "PDF extension stripper"
+      ]
+    },
+    "NUM/": {
+      "NumPad": [
+        "Adds PG break"
+      ]
+    },
+    "NUM*": {
+      "NumPad": [
+        "Highlighted Item Search"
+      ]
+    },
+    "NUM-": {
+      "NumPad": [
+        "Pink Box Sizes (Ctrl, L and R Alt)"
+      ]
+    },
+    "NUM7": {
+      "NumPad": [
+        "therefore +Delta ^delta"
+      ]
+    },
+    "NUM8": {
+      "NumPad": [
+        "theta"
+      ]
+    },
+    "NUM9": {
+      "NumPad": [
+        "Py Symbol(^ic function) Maker for 2100"
+      ]
+    },
+    "NUM4": {
+      "NumPad": [
+        "\\cdot +bullet"
+      ]
+    },
+    "NUM5": {
+      "NumPad": [
+        "Win Tab, Header Autoformat: ^Solution !Notes"
+      ]
+    },
+    "NUM6": {
+      "NumPad": [
+        "R^r ightarrow"
+      ]
+    },
+    "NUM1": {
+      "NumPad": [
+        "Fraction, +Fraction Helper"
+      ]
+    },
+    "NUM2": {
+      "NumPad": [
+        "Cos",
+        "Sec"
+      ]
+    },
+    "NUM3": {
+      "NumPad": [
+        "Sin",
+        "Csc"
+      ]
+    },
+    "NUM0": {
+      "NumPad": [
+        "Math Omicron, +Eqn Solver"
+      ]
+    },
+    "NUM.": {
+      "NumPad": [
+        "Math Omega, +Ohm"
+      ]
+    }
+  }
+}

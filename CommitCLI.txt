@@ -1,0 +1,54 @@
+//Create Repo
+git init
+git add -A
+git commit -m "something"
+//THRU GH CLI
+gh auth login
+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
+gh repo create LEGAL --private --source=. --remote=origin --push
+//Optional for new repo: git remote add origin https://github.com/USERNAME/REPONAME.git
+git branch -M main
+git push -u origin main
+
+//Download Zip
+git init
+git remote add origin [URL]
+//Confirm ties with 
+git remote -v
+// No need to pull yet, Merge to keep local files and version history
+
+// Folder doesnt share commit ancestry with the repo
+//NOTE: -A adds new, modified, and deleted files across the entire repository, no matter what folder you’re in
+git add .
+// Check with "git status"
+git commit -m "COMMMITMESSAGEHERE"
+// Can use a "git branch" to see where you are
+// MASTER OR MAIN DEPENDS WHEN YOU COMMIT. MASTER FIRST MAIN FROM THEN ON
+git push -u origin main
+
+
+
+git fetch origin
+git merge -s ours --no-commit origin/main
+git commit -m "Replace remote contents with local snapshot (preserve history)"
+git push -u origin main
+
+// Clone
+git clone [URL]
+
+git pull origin main --allow-unrelated-histories
+
+git commit -m "COMMMITMESSAGEHERE"
+// Input User + Pwd
+git push -u origin main
+
+//Set tracking
+git branch --set-upstream-to=origin/main main
+
+
+
+
+// Changing Remotes after Account Owner Transfer
+git remote set-url origin git@github.com:newowner/repo.git
+
+
