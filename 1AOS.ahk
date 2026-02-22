@@ -17,7 +17,7 @@
 #Include "laos_PrtSc.ahk"
 #Include "laos_Copilot.ahk"
 #Include "halong_Huion.ahk"
-Run "halong_Insomniac.ahk"
+; Run "halong_Insomniac.ahk"
 
 ; --- Logistics ----------------------------------------------------------------
 CoordMode("Mouse", "Screen")
