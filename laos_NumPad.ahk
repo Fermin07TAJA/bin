@@ -7,14 +7,8 @@ NumpadDiv:: {
 }
 
 ; Highlighted Item Search
-NumpadMult:: {
-    Send("^c")
-    if !ClipWait(2)         ; wait up to 2s for the copy
-        return
-    clp := A_Clipboard
-    clp := StrReplace(clp, A_Space, "+")
-    Run("C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe https://duck.com/?q=" clp)
-}
+NumpadMult::qsr("ddg", False, "Browser")
+; NumpadMult::quicksearches_ddg()
 
 ; Pink Box Sizes (Ctrl, L and R Alt)
 ^NumpadSub:: {
@@ -140,18 +134,35 @@ NumpadRight::       Send("{Raw}\Rightarrow")
 
 ; ----------------------- 1 2 3 -----------------------
 
+; Google Patents Quicksearch
+NumpadEnd::qsr("gp",False, "Browser")
+^NumpadEnd::qsr("gp",True, "Browser")
 ; Fraction, +Fraction Helper
-NumpadEnd::         Send("{Raw}\frac{")
-+NumpadEnd:: {
-    ib  := InputBox("Enter Numerator",   "Fysh AHK UI", "w300 h100")
-    if (ib.Result != "OK" || ib.Value = "")
-        return
-    ib2 := InputBox("Enter Denominator", "Fysh AHK UI", "w300 h100")
-    if (ib2.Result != "OK" || ib2.Value = "")
-        return
-    if (interrupt() = 1)
-        Send("{Raw}\frac{" ib.Value "}{" ib2.Value "} ")
-}
+; +NumpadEnd:: {
+;     ib  := InputBox("Enter Numerator",   "Fysh AHK UI", "w300 h100")
+;     if (ib.Result != "OK" || ib.Value = "")
+;         return
+;     ib2 := InputBox("Enter Denominator", "Fysh AHK UI", "w300 h100")
+;     if (ib2.Result != "OK" || ib2.Value = "")
+;         return
+;     if (interrupt() = 1)
+;         Send("{Raw}\frac{" ib.Value "}{" ib2.Value "} ")
+; }
+
+; halong_annuities.ahk
+; NumpadDown::
+; {
+;     SendCmd("COPY_NAME")
+;     Sleep 30
+;     Send "^v"
+; }
+
+; NumpadPgDn::
+; {
+;     SendCmd("COPY_MSG")
+;     Sleep 30
+;     Send "^v"
+; }
 
 ; Cos
 NumpadDown::        Send("{Raw}\cos(")
@@ -165,18 +176,20 @@ NumpadPgDn::        Send("{Raw}\sin(")
 ; ----------------------- 0 . Del -----------------------
 
 ; Math Omicron, +Eqn Solver
-NumpadIns::         Send("{Raw}Omicron = ")
+NumpadIns::patentcopy()
+        ;  Send("{Raw}Omicron = ")
 
-+NumpadIns:: {
-    ib  := InputBox("Enter Variable to Solve For", "Fysh AHK UI", "w300 h100")
-    if (ib.Result != "OK" || ib.Value = "")
-        return
-    ib2 := InputBox("Enter Equation", "Fysh AHK UI", "w300 h100")
-    if (ib2.Result != "OK" || ib2.Value = "")
-        return
-    if (interrupt() = 1)
-        Send("{Raw}" ib.Value "_ = solve(" ib2.Value "," ib.Value ")[0]")
-}
++NumpadIns::
+;  {
+;     ib  := InputBox("Enter Variable to Solve For", "Fysh AHK UI", "w300 h100")
+;     if (ib.Result != "OK" || ib.Value = "")
+;         return
+;     ib2 := InputBox("Enter Equation", "Fysh AHK UI", "w300 h100")
+;     if (ib2.Result != "OK" || ib2.Value = "")
+;         return
+;     if (interrupt() = 1)
+;         Send("{Raw}" ib.Value "_ = solve(" ib2.Value "," ib.Value ")[0]")
+; }
 
 ; Math Omega, +Ohm
 NumpadDel::         Send("{Raw}#$\Omega$")

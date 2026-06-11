@@ -44,7 +44,7 @@ d::
 }
 
 ; CNTRA
-RAlt & i::Run(contra)
+RAlt & i::    Run(contra)
 ; Ω
 r::      Send("{U+03A9}")      ; Ω Special Character
 ; t::      Send("&emsp;{Space}") ; IPYNB Tab
@@ -53,7 +53,8 @@ T::pwsh7_atfolder() ; halong_Powershell7.pwsh7_atfolder
 
 ; YouTube (halong_quicksearches.quicksearches_yt)
 ; YT Search
-y::quicksearches_yt()
+y::qsr("yt",True, "Browser")
+; y::quicksearches_yt()
 
 ; ASCII arrows
 ;🢜🢜🢜🢜🢜🡲
