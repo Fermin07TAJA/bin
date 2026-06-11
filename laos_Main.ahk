@@ -7,7 +7,7 @@
 ; MSTeams
 ; #Space:: win_handler("", " | Microsoft Teams")
 ; VS Code
-<!Space:: win_handler(":\Program Files\Microsoft VS Code\Code.exe", "Visual Studio Code")
+<!Space:: win_handler("C:\Program Files\Microsoft VS Code\Code.exe", "Visual Studio Code")
 ; Gee Pee Tee
 >!g::win_handler("https://chatgpt.com", "ChatGPT")
 ; >!g:: win_handler("https://m365.cloud.microsoft/chat/?fromcode=cmmiadtp424&refOrigin=Other&origindomain=Office&auth=2&client-request-id=a9c9c7ff-4ca3-418d-afe1-7e2283513163", "M365 Copilot")

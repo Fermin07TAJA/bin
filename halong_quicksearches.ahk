@@ -21,6 +21,6 @@ quicksearches_yt()
         MsgBox("NIET, KARTOSHKA")
     else {
         yt := "https://www.youtube.com/results?search_query=" StrReplace(ib.Value, A_Space, "+")
-        Run('"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" ' yt)
+        Run('"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe" ' yt)
     }
 }

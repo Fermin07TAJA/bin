@@ -18,16 +18,29 @@ w:: win_handler("C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE", "
 ; Anime Bookmarks Name Cleaner
 d::
 {
-    Send("^d")
-    Sleep 150
+    A_Clipboard := ""
+
+    Send("^a")
+    Sleep(50)
+
     Send("^c")
+
     if !ClipWait(1)
         return
+
     selectedText := A_Clipboard
-    if RegExMatch(selectedText, "Watch\s+(.*?)\s+English", &m) {
-        A_Clipboard := m[1]
-        Send("^v")
-    }
+
+    selectedText := RegExReplace(selectedText, "^[^\w]+", "")
+
+    if pos := InStr(selectedText, " - ")
+        selectedText := SubStr(selectedText, 1, pos - 1)
+
+    A_Clipboard := selectedText
+
+    Send("^a")
+    Sleep(30)
+
+    Send("^v")
 }
 
 ; CNTRA

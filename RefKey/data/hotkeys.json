@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-02-22T04:45:09.140593Z",
+  "updated_at": "2026-02-22T07:36:48.135452Z",
   "letters": {
     "SPACE": {
       "General": [
-        "MSTeams"
+        "#Space::win_handler(\"\\..\\pm\\discord.vbs\", \" - Discord\")"
       ],
       "OS Permanents": [
         "AOT"
@@ -14,9 +14,14 @@
         "Notepad"
       ]
     },
+    "M": {
+      "General": [
+        "Thunderbird"
+      ]
+    },
     "Q": {
       "General": [
-        "MS Outlook"
+        "WhatsApp"
       ]
     },
     "W": {
