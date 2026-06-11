@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0+
+DllCall("SetThreadDpiAwarenessContext", "ptr", -3, "ptr") ; Mouse Context Across Multiple Monitors
 ; PM Handler            ----------------------------------------------------------------
 global CFP := A_ScriptDir "\..\pm\pm.ini"
 LoadConfigIni(filePath) {
@@ -14,6 +15,11 @@ LoadConfigIni(filePath) {
     cfg["EMAIL_4"]        := read("Emails","EMAIL_4")
     cfg["EMAIL_5"]        := read("Emails","EMAIL_5")
     cfg["EMAIL_6"]        := read("Emails","EMAIL_6")
+    cfg["EMAIL_7"]        := read("Emails","EMAIL_7")
+    cfg["EMAIL_8"]        := read("Emails","EMAIL_8")
+    cfg["EMAIL_9"]        := read("Emails","EMAIL_9")
+    cfg["EMAIL_10"]        := read("Emails","EMAIL_10")
+    cfg["EMAIL_11"]        := read("Emails","EMAIL_11")
     cfg["PHONE_1"]        := read("Profile","PHONE_1")
     cfg["EMAIL_COMPANY"]  := read("Profile","EMAIL_COMPANY")
     cfg["PWD_COMPANY"]    := read("Profile","PWD_COMPANY")
@@ -35,28 +41,34 @@ global config := LoadConfigIni(CFP)
 Cfg(key, default:="") => (config.Has(key) ? config[key] : default)
 
 ; Aliases
-global itinerario := Cfg("ITINERARIO_URL")
-global contra     := Cfg("contra_URL")
-global anime      := Cfg("anime_URL")
-global email1     := Cfg("EMAIL_1")
-global email2     := Cfg("EMAIL_2")
-global email3     := Cfg("EMAIL_3")
-global email4     := Cfg("EMAIL_4")
-global email5     := Cfg("EMAIL_5")
-global email6     := Cfg("EMAIL_6")
-global phone      := Cfg("PHONE_1")
-global emailC     := Cfg("EMAIL_COMPANY")
-global pwdC       := Cfg("PWD_COMPANY")
-global THROWPASS  := Cfg("THROWPASS")
-global THROWEMAIL := Cfg("THROWEMAIL")
-global NAME       := Cfg("NAME")
-global NAMECAPS   := Cfg("NAMECAPS")
-global ID_NUM     := Cfg("ID_NUM")
-global LINKEDIN   := Cfg("LINKEDIN")
-global GITHUB     := Cfg("GITHUB")
-global PORTFOLIO  := Cfg("PORTFOLIO")
-global direc      := Cfg("DIREC")
-global zed        := Cfg("ZED")
+global itinerario       := Cfg("ITINERARIO_URL")
+global contra           := Cfg("contra_URL")
+global anime            := Cfg("anime_URL")
+global email1           := Cfg("EMAIL_1")
+global email2           := Cfg("EMAIL_2")
+global email3           := Cfg("EMAIL_3")
+global email4           := Cfg("EMAIL_4")
+global email5           := Cfg("EMAIL_5")
+global email6           := Cfg("EMAIL_6")
+global email7           := Cfg("EMAIL_7")
+global email8           := Cfg("EMAIL_8")
+global email9           := Cfg("EMAIL_9")
+global email10          := Cfg("EMAIL_10")
+global email11          := Cfg("EMAIL_11")
+global phone            := Cfg("PHONE_1")
+global emailC           := Cfg("EMAIL_COMPANY")
+global pwdC             := Cfg("PWD_COMPANY")
+global THROWPASS        := Cfg("THROWPASS")
+global THROWEMAIL       := Cfg("THROWEMAIL")
+global NAME             := Cfg("NAME")
+global NAMECAPS         := Cfg("NAMECAPS")
+global ID_NUM           := Cfg("ID_NUM")
+global LINKEDIN         := Cfg("LINKEDIN")
+global GITHUB           := Cfg("GITHUB")
+global PORTFOLIO        := Cfg("PORTFOLIO")
+global direc            := Cfg("DIREC")
+global zed              := Cfg("ZED")
+global DEFAULT_BROWSER  := Cfg("DEFAULT_BROWSER")
 
 
 ; --- Utilities         ----------------------------------------------------------------
@@ -92,9 +104,6 @@ win_handler(appPath, windowTitle) {
 
     for hwnd in winList {
         this_id := "ahk_id " hwnd
-        ; title := WinGetTitle(this_id)
-        if !WinExist(this_id)
-            continue
         title := WinGetTitle(this_id)
         if InStr(title, windowTitle) {
             windowsFound := true
@@ -132,5 +141,84 @@ interrupt() {
             return 1
         if GetKeyState("Esc", "P")
             return 0
+    }
+}
+
+; EMail Manager
+global epste
+
+email_paste() {
+    activeWin := WinExist("A")
+    global epste
+    try epste.Destroy()
+
+    CoordMode("Mouse", "Screen")
+    MouseGetPos(&mx, &my)
+
+    epste := Gui("+AlwaysOnTop -Caption +ToolWindow")
+    epste.SetFont("s7")
+    epste.MarginX := 0
+    epste.MarginY := 0
+
+
+    epste.OnEvent("Escape", (*) => epste.Destroy())
+
+    emails := Map(
+        "JPM", email3,
+        "Fr Personal", email4,
+        "IAmChicken", email5,
+        "Tutanota", email6,
+        "paz.gov", email7,
+        "paz.rent", email8,
+        "Arturo Kala", email9,
+        "146", email10,
+        "IL", email11,
+        "CAT Email", emailC
+    )
+
+    y := 0
+
+    for label, val in emails {
+
+        btn := epste.Add("Button", "x0 y" y " w80 h18", label)
+
+        btn.OnEvent("Click", ((fn) => (ctrl, *) => fn())(
+            PasteEmail.Bind(val, epste, activeWin)
+        ))
+
+        y += 18  ; nogaps
+    }
+
+
+    epste.Show("x" mx " y" my)
+    SetTimer(WatchGuiFocus, 50)
+    WinActivate("ahk_id " epste.Hwnd)
+}
+
+PasteEmail(email, epste, targetWin) {
+    try epste.Destroy()
+
+    if targetWin ; restore focus to original window for pasting
+        WinActivate("ahk_id " targetWin)
+
+    Sleep(50)
+    A_Clipboard := ""
+    A_Clipboard := email
+    ClipWait(0.3)
+    Send("^v")
+}
+
+WatchGuiFocus() {
+    global epste
+
+    try hwnd := epste.Hwnd
+    catch {
+        SetTimer(WatchGuiFocus, 0)
+        return
+    }
+
+    if !WinActive("ahk_id " hwnd) {
+        try epste.Destroy()
+        SetTimer(WatchGuiFocus, 0)
     }
 }
