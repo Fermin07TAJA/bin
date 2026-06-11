@@ -56,10 +56,16 @@ RAlt & b:: Run("https://armstrongmetalcrafts.com/Reference/MetricTapChart.aspx")
 ; Password / email quick inserts
 LAlt & d:: SendText(THROWEMAIL)
 RAlt & d:: SendText(THROWPASS)
-; joaquin.paz@cat.com
-LAlt & y:: SendText(emailC)
 ; PWD Corporate
 RAlt & y:: Send("{Raw}" . pwdC)
+
+; Email Cluster
+#j::  SendText(email1) ; (Cornell)
+#o:: SendText(email2) ; (Personal)
+LAlt & y:: SendText(emailC) ; (joaquin.paz@cat.com)
+
+; Alt Email Cluster
+#y::email_paste()
 
 ; ShowSave
 ^>!i::  Run(anime)
@@ -71,25 +77,11 @@ RAlt & y:: Send("{Raw}" . pwdC)
 ; +NAME
 +!j::  SendText(NAMECAPS)
 
-; Main Cluster (EMail)
-#j::  SendText(email1)
-; Main Cluster (EMail)
-#^j:: SendText(email2)
-; Main Cluster (EMail)
-#!j::  SendText(email3)
-
 ; Phun Nombur
 RAlt & k:: SendText(phone)
 
 ; Musica Discord
 >!m:: Run('* "' A_ScriptDir '\..\pm\musisend.ps1"')
-
-; Alt Cluster (EMail)
-#o::  SendText(email4)
-; Alt Cluster (EMail)
-#^o:: SendText(email5)
-; Alt Cluster (EMail)
-#!o::  SendText(email6)
 
 ; Extract from zip file
 RAlt & p::extract_7Zip()

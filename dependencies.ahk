@@ -33,6 +33,7 @@ LoadConfigIni(filePath) {
     cfg["PORTFOLIO"]      := read("Profiles","PORTFOLIO")
     cfg["DIREC"]          := read("System","DIREC")
     cfg["ZED"]            := read("System","ZED")    ; editor/command
+    cfg["DEFAULT_BROWSER"]:= read("System","DEFAULT_BROWSER")  
 
     return cfg
 }

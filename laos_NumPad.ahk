@@ -176,7 +176,7 @@ NumpadPgDn::        Send("{Raw}\sin(")
 ; ----------------------- 0 . Del -----------------------
 
 ; Math Omicron, +Eqn Solver
-NumpadIns::patentcopy()
+; NumpadIns::patentcopy()
         ;  Send("{Raw}Omicron = ")
 
 +NumpadIns::
