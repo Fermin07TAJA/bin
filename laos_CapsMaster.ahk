@@ -14,6 +14,8 @@ CapsLock:: return
 w:: win_handler("C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE", " - Word")
 ;            --------------------------------------
 
+; #V Shortcut
+a::Send("#v")
 
 ; Anime Bookmarks Name Cleaner
 d::
@@ -85,7 +87,7 @@ LButton::
 ; 365 Manager shortcuts
 
 ; Word: Format
-a::  Send("{Alt}hfp") ; Formtato
+; a::  Send("{Alt}hfp") ; Formtato
 ; Word: Wrap Image
 1:: Send("{Alt}jptwo")           ; Wrap Image
 ; Word: Frame
