@@ -17,40 +17,45 @@ w:: win_handler("C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE", "
 ; #V Shortcut
 a::Send("#v")
 
-; Anime Bookmarks Name Cleaner
-d::
+
+; Second Clipboard ----------------------
+global Clipboard2 := ""
+
+; Secondary Clipboard Copy
+c::
 {
+    global Clipboard2
+
+    ClipSaved := ClipboardAll()
     A_Clipboard := ""
+    Send "^c"
 
-    Send("^a")
-    Sleep(50)
+    if ClipWait(1)
+        Clipboard2 := A_Clipboard
 
-    Send("^c")
-
-    if !ClipWait(1)
-        return
-
-    selectedText := A_Clipboard
-
-    selectedText := RegExReplace(selectedText, "^[^\w]+", "")
-
-    if pos := InStr(selectedText, " - ")
-        selectedText := SubStr(selectedText, 1, pos - 1)
-
-    A_Clipboard := selectedText
-
-    Send("^a")
-    Sleep(30)
-
-    Send("^v")
+    A_Clipboard := ClipSaved
 }
 
-; CNTRA
+; Secondary Clipboard Paste
+v::
+{
+    global Clipboard2
+    SendText(Clipboard2)
+}
+; ----------------------
+
+;CAPS - Δ Special Character
+d:: Send("{U+0394}")    ; Δ Special Character
+
+;CAPS - Sends F12
+q::Send("{F12}")
+
+;CAPS - CNTRA
 RAlt & i::    Run(contra)
-; Ω
+;CAPS - Ω
 r::      Send("{U+03A9}")      ; Ω Special Character
 ; t::      Send("&emsp;{Space}") ; IPYNB Tab
-; Terminal @Folder
+;CAPS - Terminal @Folder
 T::pwsh7_atfolder() ; halong_Powershell7.pwsh7_atfolder
 
 ; YouTube (halong_quicksearches.quicksearches_yt)

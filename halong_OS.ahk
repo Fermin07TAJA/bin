@@ -1,8 +1,46 @@
 #Requires AutoHotkey v2.0
 
 ; Permanent
-; AOT
+; AOT (<!) and AOB (>!)
 ^!Space:: WinSetAlwaysOnTop(-1, "A")
+global BottomWindows := Map()
+
+; AOB
+; -------------------------------------------------
+^>!Space::
+{
+    hwnd := WinExist("A")
+    if BottomWindows.Has(hwnd)
+    {
+        BottomWindows.Delete(hwnd)
+        TrayTip("Always-On-Bottom", "Disabled")
+    }
+    else
+        {
+            BottomWindows[hwnd] := true
+            TrayTip("Always-On-Bottom", "Enabled")
+        }
+    }
+    SetTimer(KeepBottom, 250)
+    KeepBottom()
+    {
+        global BottomWindows
+        for hwnd in BottomWindows
+            {
+                if !WinExist("ahk_id " hwnd)
+                    {
+                        BottomWindows.Delete(hwnd)
+                        continue
+                    }
+                    DllCall( ; HWND_BOTTOM = 1
+                        "SetWindowPos", "Ptr", hwnd, "Ptr", 1,
+                        "Int", 0, "Int", 0, "Int", 0, "Int", 0,
+                        "UInt", 0x0001 | 0x0002 ; NOMOVE | NOSIZE
+            )
+        }
+    }
+    ;AOB -------------------------------------------------
+            
 ; Control Panel
 #e::Run("C:\Windows\explorer.exe shell:ControlPanelFolder")
 ; Itinerario
@@ -41,7 +79,7 @@ $Tab::
         Send("{Tab Down}")
     } else {
         win_handler("C:\Program Files\Everything\Everything.exe", " - Everything")
-        releasedIn5 := KeyWait("Tab", "T5")
+        releasedIn5 := KeyWait("Tab", "T6")
         if (!releasedIn5) {
             Run(zed " " "C:\RootApps\bin\1AOS.ahk")
         }

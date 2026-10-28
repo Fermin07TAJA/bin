@@ -12,8 +12,8 @@ s:: win_handler("C:\Users\Chickenfish\AppData\Local\slack\slack.exe", " - Slack"
 ;            --------------------------------------
 
 ; NumpadEnter:: Run(zed " " "C:\RootApps\bin\Numlock.ahk")
-NumpadAdd::   Run('* "' A_ScriptDir '\..\pm\cadsend.ps1"')
-^NumpadAdd::  Run('* "' A_ScriptDir '\..\pm\quotessend.ps1"')
+; NumpadAdd::   Run('* "' A_ScriptDir '\..\pm\cadsend.ps1"')
+; ^NumpadAdd::  Run('* "' A_ScriptDir '\..\pm\quotessend.ps1"')
 
 ; PDF extension stripper
 .::
@@ -66,6 +66,7 @@ l::
     Send("^v")
 }
 
+; PrtSc: Sad violin launch
 v:: Run("D:\SFX\SFX_DCSB\SadViolin.mp3")
 
 ; END   CapsMaster  -----------------------------------------------------------------------------------
